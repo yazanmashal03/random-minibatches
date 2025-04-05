@@ -1,0 +1,1477 @@
+\documentclass{article}
+
+%! TeX root = main.tex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% math
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+% fonts
+\usepackage{microtype}
+\usepackage{fourier}
+\usepackage{bm}
+
+% layout
+\usepackage[a4paper]{geometry}
+
+% reference organization
+\usepackage[backend = biber, style = alphabetic, maxbibnames = 6]{biblatex}
+
+\addbibresource{bibliography.bib}
+
+% enumeration
+\usepackage{enumitem}
+
+\setenumerate{label = (\alph*), ref=\thelemma(\alph*)}
+
+% color
+\usepackage[dvipsnames]{xcolor}
+
+\newcommand{\GC}[1]{{\color{red} [#1]}}
+
+% hyperlinks
+\usepackage{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% blackboard bold
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+
+\newcommand*{\E}{\mathbb{E}} % for expectations
+
+\newcommand*{\bbA}{\mathbb{A}}
+\newcommand*{\bbB}{\mathbb{B}}
+\newcommand*{\bbC}{\mathbb{C}}
+\newcommand*{\bbD}{\mathbb{D}}
+\newcommand*{\bbE}{\mathbb{E}}
+\newcommand*{\bbF}{\mathbb{F}}
+\newcommand*{\bbG}{\mathbb{G}}
+\newcommand*{\bbH}{\mathbb{H}}
+\newcommand*{\bbI}{\mathbb{I}}
+\newcommand*{\bbJ}{\mathbb{J}}
+\newcommand*{\bbK}{\mathbb{K}}
+\newcommand*{\bbL}{\mathbb{L}}
+\newcommand*{\bbM}{\mathbb{M}}
+\newcommand*{\bbN}{\mathbb{N}}
+\newcommand*{\bbO}{\mathbb{O}}
+\newcommand*{\bbP}{\mathbb{P}}
+\newcommand*{\bbQ}{\mathbb{Q}}
+\newcommand*{\bbR}{\mathbb{R}}
+\newcommand*{\bbS}{\mathbb{S}}
+\newcommand*{\bbT}{\mathbb{T}}
+\newcommand*{\bbU}{\mathbb{U}}
+\newcommand*{\bbV}{\mathbb{V}}
+\newcommand*{\bbW}{\mathbb{W}}
+\newcommand*{\bbX}{\mathbb{X}}
+\newcommand*{\bbY}{\mathbb{Y}}
+\newcommand*{\bbZ}{\mathbb{Z}}
+
+% bold
+\newcommand*{\bfA}{\mathbf{A}}
+\newcommand*{\bfB}{\mathbf{B}}
+\newcommand*{\bfC}{\mathbf{C}}
+\newcommand*{\bfD}{\mathbf{D}}
+\newcommand*{\bfE}{\mathbf{E}}
+\newcommand*{\bfF}{\mathbf{F}}
+\newcommand*{\bfG}{\mathbf{G}}
+\newcommand*{\bfH}{\mathbf{H}}
+\newcommand*{\bfI}{\mathbf{I}}
+\newcommand*{\bfJ}{\mathbf{J}}
+\newcommand*{\bfK}{\mathbf{K}}
+\newcommand*{\bfL}{\mathbf{L}}
+\newcommand*{\bfM}{\mathbf{M}}
+\newcommand*{\bfN}{\mathbf{N}}
+\newcommand*{\bfO}{\mathbf{O}}
+\newcommand*{\bfP}{\mathbf{P}}
+\newcommand*{\bfQ}{\mathbf{Q}}
+\newcommand*{\bfR}{\mathbf{R}}
+\newcommand*{\bfS}{\mathbf{S}}
+\newcommand*{\bfT}{\mathbf{T}}
+\newcommand*{\bfU}{\mathbf{U}}
+\newcommand*{\bfV}{\mathbf{V}}
+\newcommand*{\bfW}{\mathbf{W}}
+\newcommand*{\bfX}{\mathbf{X}}
+\newcommand*{\bfY}{\mathbf{Y}}
+\newcommand*{\bfZ}{\mathbf{Z}}
+
+\newcommand*{\bfa}{\mathbf{a}}
+\newcommand*{\bfb}{\mathbf{b}}
+\newcommand*{\bfc}{\mathbf{c}}
+\newcommand*{\bfd}{\mathbf{d}}
+\newcommand*{\bfe}{\mathbf{e}}
+\newcommand*{\bff}{\mathbf{f}}
+\newcommand*{\bfg}{\mathbf{g}}
+\newcommand*{\bfh}{\mathbf{h}}
+\newcommand*{\bfi}{\mathbf{i}}
+\newcommand*{\bfj}{\mathbf{j}}
+\newcommand*{\bfk}{\mathbf{k}}
+\newcommand*{\bfl}{\mathbf{l}}
+\newcommand*{\bfm}{\mathbf{m}}
+\newcommand*{\bfn}{\mathbf{n}}
+\newcommand*{\bfo}{\mathbf{o}}
+\newcommand*{\bfp}{\mathbf{p}}
+\newcommand*{\bfq}{\mathbf{q}}
+\newcommand*{\bfr}{\mathbf{r}}
+\newcommand*{\bfs}{\mathbf{s}}
+\newcommand*{\bft}{\mathbf{t}}
+\newcommand*{\bfu}{\mathbf{u}}
+\newcommand*{\bfv}{\mathbf{v}}
+\newcommand*{\bfw}{\mathbf{w}}
+\newcommand*{\bfx}{\mathbf{x}}
+\newcommand*{\bfy}{\mathbf{y}}
+\newcommand*{\bfz}{\mathbf{z}}
+
+\newcommand*{\bfbeta}{\bm{\beta}}
+\newcommand*{\bfeps}{\bm{\eps}}
+\newcommand*{\bfxi}{\bm{\xi}}
+
+\newcommand*{\bfzero}{\mathbf{0}}
+
+% calligraphic
+\newcommand*{\calA}{\mathcal{A}}
+\newcommand*{\calB}{\mathcal{B}}
+\newcommand*{\calC}{\mathcal{C}}
+\newcommand*{\calD}{\mathcal{D}}
+\newcommand*{\calE}{\mathcal{E}}
+\newcommand*{\calF}{\mathcal{F}}
+\newcommand*{\calG}{\mathcal{G}}
+\newcommand*{\calH}{\mathcal{H}}
+\newcommand*{\calI}{\mathcal{I}}
+\newcommand*{\calJ}{\mathcal{J}}
+\newcommand*{\calK}{\mathcal{K}}
+\newcommand*{\calL}{\mathcal{L}}
+\newcommand*{\calM}{\mathcal{M}}
+\newcommand*{\calN}{\mathcal{N}}
+\newcommand*{\calO}{\mathcal{O}}
+\newcommand*{\calP}{\mathcal{P}}
+\newcommand*{\calQ}{\mathcal{Q}}
+\newcommand*{\calR}{\mathcal{R}}
+\newcommand*{\calS}{\mathcal{S}}
+\newcommand*{\calT}{\mathcal{T}}
+\newcommand*{\calU}{\mathcal{U}}
+\newcommand*{\calV}{\mathcal{V}}
+\newcommand*{\calW}{\mathcal{W}}
+\newcommand*{\calX}{\mathcal{X}}
+\newcommand*{\calY}{\mathcal{Y}}
+\newcommand*{\calZ}{\mathcal{Z}}
+
+% operators
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+% superscripts
+\newcommand*{\comp}{^{\mathsf{c}}}
+\newcommand*{\dual}{^*}
+\newcommand*{\inv}{^{-1}}
+\newcommand*{\pinv}{^{+}}
+\newcommand*{\orth}{^{\perp}}
+\newcommand*{\tran}{^{\mathsf{t}}}
+\newcommand*{\ind}[1]{^{(#1)}}
+
+% misc
+\newcommand*{\eps}{\varepsilon}
+\newcommand*{\geqZ}{\Z_{\geq 0}}
+\newcommand*{\geqR}{\R_{\geq 0}}
+\newcommand*{\ggZ}{\Z_{> 0}}
+\newcommand*{\ggR}{\R_{> 0}}
+\newcommand*{\sigmax}{\sigma_{\mathrm{max}}}
+\newcommand*{\sigmin}{\sigma_{\mathrm{min}}}
+\newcommand*{\sigminp}{\sigma_{\mathrm{min}}^+}
+\newcommand*{\simiid}{\overset{\scriptscriptstyle i.i.d.}{\sim}}
+\newcommand*{\bigmid}{\ \big\vert\ }
+\newcommand*{\Bigmid}{\ \Big\vert\ }
+\newcommand*{\indic}{\mathbb{1}}
+
+% paired delimiters
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\iprod}{\langle}{\rangle}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+% roman
+\newcommand*{\Ber}{\mathrm{Ber}}
+\newcommand*{\Cov}{\mathrm{Cov}}
+\newcommand*{\Diag}{\mathrm{Diag}}
+\newcommand*{\KL}{\mathrm{KL}}
+\newcommand*{\MSE}{\mathrm{MSE}}
+\newcommand*{\Tr}{\mathrm{Tr}}
+\newcommand*{\Var}{\mathrm{Var}}
+
+\newcommand*{\diag}{\mathrm{diag}}
+\newcommand*{\id}{\mathrm{id}}
+\newcommand*{\im}{\mathrm{im}}
+\newcommand*{\proj}{\mathrm{proj}}
+\newcommand*{\rank}{\mathrm{rank}}
+
+\newcommand*{\rmd}{\mathrm{d}}
+\newcommand*{\op}{\mathrm{op}}
+\newcommand*{\avg}{\mathrm{avg}}
+
+% paper specific
+\newcommand{\weight}{\bfw}
+
+\newcommand{\olweight}{\overline{\bfw}}
+\newcommand{\olX}{\overline{X}}
+\newcommand{\olbbX}{\overline{\bbX}}
+\newcommand{\olY}{\overline{\bfY}}
+
+\newcommand{\whweight}{\widehat{\bfw}}
+\newcommand{\whX}{\widehat{X}}
+\newcommand{\whbbX}{\widehat{\bbX}}
+\newcommand{\whY}{\widehat{\bfY}}
+
+\newcommand{\whu}{\widehat{\bfu}}
+\newcommand{\whv}{\widehat{\bfv}}
+
+\newcommand{\sigeps}{\Sigma_{\bfeps}}
+
+\newcommand{\starweight}{\bfw_{\star}}
+
+\newcommand{\Slin}{S^{\mathrm{lin}}}
+\newcommand{\Sint}{S^{\mathrm{int}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[lemma]{Corollary}
+\newtheorem{theorem}[lemma]{Theorem}
+\newtheorem{definition}[lemma]{Definition}
+\newtheorem{assumption}[lemma]{Assumption}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Randomly Weighted Gradient Descent in the Linear Model}
+\author{Gabriel Clara and Yazan Mash'al}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  
+\end{abstract}
+
+\section{Introduction}
+
+\subsection{Related Work}
+
+\subsection{Organization}
+
+\subsection{Notation}
+
+We let $A\tran$, $\Tr(A)$, and $A\pinv$ signify the transpose, trace, and
+pseudo-inverse of a matrix $A$. The maximal and minimal singular values of a
+matrix are denoted by $\sigmax(A)$ and $\sigmin(A)$. The minimal non-zero
+singular value is given by $\sigminp(A)$. For a square matrix, $\Diag(A)$
+signifies the diagonal matrix with entries $\Diag(A)_{ii} = A_{ii}$. Given
+matrices of the same dimension, we let $A \odot B$ denote the element-wise
+product $(A \odot B)_{ij} = A_{ij} B_{ij}$.
+
+Euclidean vectors are always written in boldface and endowed with the standard
+norm $\norm{\bfv}_2^2 = \bfv\tran \bfv$. Given a matrix $A$ of suitable
+dimension, we write $\bfv \in \ker(A)$ whenever $A \bfv = \bfzero$. The
+orthogonal complement of $\ker(A)$ contains all vectors satisfying $\bfw\tran
+\bfv = 0$ for every $\bfv \in \ker(A)$. We also write $\bfv \perp \ker(A)$ in
+this case.
+
+Let $V$ and $W$ be non-trivial normed vector spaces, then the operator norm of a
+linear operator $T : V \to W$ is given by $\norm{T}_{\op} \coloneq \sup_{v :
+\norm{v} = 1} \norm{T v}$. When $V = \R^d$ and $W = \R^n$, the operator norm of
+a matrix $A$ matches $\sigmax(A)$ and is also known as the spectral norm. We
+will be drop the sub-script in this case, meaning $\norm{A} = \norm{A}_{\op} =
+\sigmax(A)$.
+
+Given any two functions $f, g : \R^d \to \R$ we will write $f(\bfx) =
+O\big(g(\bfx)\big)$, as $\bfx \to \bfy$, to signify that $\limsup_{\bfx \to
+\bfy} \abs[\big]{f(\bfx) / g(\bfx)} < \infty$. For suitable measures $\mu$ and
+$\nu$ on $\R^d$, we denote by $\calW_q(\mu, \nu)$, $q \geq 1$ the transportation
+distance
+\begin{align*}
+  \calW_q\big(\mu, \nu\big) = \inf_\pi \left(\int \norm{\bfu - \bfv}_2^2\ \rmd
+  \pi(\bfu, \bfv)\right)^{\tfrac{1}{q}}
+\end{align*} where the infimum is taken over all measures $\pi$ on $\R^d \times
+\R^d$ with marginals $\mu$ and $\nu$.
+
+\section{Estimating Linear Predictors with Gradient Descent}
+\label{sec::grad_desc}
+
+To analyze the impact of random weighting, we focus on linear regression as a
+simplified toy model with well-understood gradient descent dynamics. Given a
+sample $(\bfX_i, Y_i)$, $i = 1, \ldots, n$ of data points $\bfX_i \in \R^d$ with
+corresponding labels $Y_i \in \R$, we aim to learn a linear predictor $\bfw \in
+\R^d$ such that $Y_i \approx \bfX_i\tran \bfw$ for each $i$. We will focus on
+predictors learned via minimization of the empirical risk \begin{align*}
+  \weight \mapsto \dfrac{1}{n} \cdot \sum_{i = 1}^n \big(Y_i - \bfX_i\tran
+  \weight\big)^2.
+\end{align*} Write $\bfY$ for the length $n$ vector with entries $Y_i$ and $X$
+for the $(n \times d)$-matrix with rows $\bfX_i\tran$, then, up to the constant
+factor $n\inv$, the empirical risk coincides with the linear least squares
+objective \begin{align}
+  \label{eq::lls_obj}
+  \weight \mapsto \norm[\big]{\bfY - X \weight}_2^2.
+\end{align} For the sake of compactness, we will use the shorthand $\bbX =
+X\tran X$. If $\bbX\inv$ exists, then \eqref{eq::lls_obj} admits the unique
+minimizer $\bbX\inv X\tran \bfY$, known as the linear least squares estimator.
+The matrix $\bbX\inv X\tran$ defines a so-called pseudo-inverse for $X$. For
+singular $\bbX$, this estimator may be generalized to take the value $X\pinv Y$,
+with $X\pinv$ any still well-defined pseudo-inverse of $X$. We will choose
+$X\pinv$ such that the linear least squares estimator coincides with the unique
+minimum-norm minimizer of \eqref{eq::lls_obj}, see Appendix
+\ref{sec::svalue_pinv} for more details.
+
+\subsection{Noiseless Gradient Descent in the Overparametrized Setting}
+
+We briefly discuss minimization of the linear least squares objective via
+full-batch gradient descent. Fixing a sequence of step-sizes $\alpha_k > 0$ the
+gradient descent recursion generated by \eqref{eq::lls_obj} takes the form
+\begin{align*}
+  \weight_{k + 1} &= \weight_k - \dfrac{\alpha_k}{2} \cdot
+  \nabla_{\weight_k}\norm[\big]{\bfY - X \weight_k}_2^2,
+\end{align*} started from some initial guess $\weight_1$. Expanding the norm in
+\eqref{eq::lls_obj} yields the quadratic polynomial $\weight \mapsto
+\weight\tran \bbX \weight - 2 \bfY\tran X \weight + \norm{\bfY}_2^2$, with
+second derivative $\bbX$. Consequently, the objective is
+$\sigmin(\bbX)$-strongly convex for invertible $\bbX$. Provided that $\alpha_k
+\cdot \norm{\bbX} < 1$ for every $k \geq 1$, this implies convergence of
+$\weight_k$ to the unique global minimizer $\bbX\inv X\tran \bfY$, regardless of
+initialization. For singular $\bbX$, the objective \eqref{eq::lls_obj} is merely
+convex, but an analogous convergence result holds under additional assumptions.
+The gradient of \eqref{eq::lls_obj} evaluates to $2 \cdot X\tran (\bfY - X
+\weight)$, so together with the property $\bbX X\pinv = X\tran$ of the
+pseudo-inverse (Lemma \ref{lem::pinv_a}), we can rewrite the gradient descent
+recursion as \begin{equation}
+  \label{eq::rec_gd_nn}
+  \begin{split}
+    \weight_{k + 1} &= \big(I - \alpha_k \cdot \bbX\big) \weight_k - \alpha_k
+    \cdot X\tran \bfY\\
+    &= \big(I - \alpha_k \cdot \bbX\big) \big(\weight_k - X\pinv \bfY\big) +
+    X\pinv \bfY.
+  \end{split}
+\end{equation} For a suitably chosen initial point $\weight_1$, the difference
+$\weight_k - X\pinv \bfY$ always lies in a sub-space on which each matrix $I -
+\alpha_k \cdot \bbX$ acts as a contraction, ensuring convergence of $\weight_k$
+to $X\pinv \bfY$ as $k \to \infty$. A precise result is given in the following
+classical lemma.
+
+\begin{lemma}
+  \label{lem::conv_gd}
+  Suppose $\weight_1 \perp \ker(X)$ and $\sup_{\ell} \alpha_\ell \cdot
+  \norm{\bbX} < 1$, then \begin{align*}
+    \norm[\big]{\weight_{k + 1} - X\pinv \bfY}_2 \leq \exp \left(-
+    \sigminp(\bbX) \cdot \sum_{\ell = 1}^k \alpha_\ell\right) \cdot
+    \norm[\big]{\weight_1 - X\pinv \bfY}_2
+  \end{align*} for every $k \geq 1$. Provided that $\sum_{\ell = 1}^\infty
+  \alpha_\ell = \infty$, the left-hand side in the previous display vanishes as
+  $k \to \infty$.
+\end{lemma}
+
+The fact that $\bfw_k$ converges to the minimizer $X\pinv \bfY$ of
+\eqref{eq::lls_obj} with the smallest magnitude appears in Section 3 of
+\cite{bartlett_montanari_et_al_2021} as an example of implicit regularization
+through gradient descent. Lemma \ref{lem::conv_gd} restates this effect as an
+explicit property of the initialization. Indeed, if $\bfw = \bfu + \bfv$ denotes
+an orthogonal decomposition of $\bfw$ along the linear sub-space $\ker(X)$,
+meaning $\bfu \perp \ker(X)$ and $\bfv \in \ker(X)$, then \begin{align*}
+  \big(I - \alpha_k \cdot \bbX\big) \bfw = \big(I - \alpha_k \cdot \bbX\big)
+  \bfu + \bfv,
+\end{align*} so the recursion \eqref{eq::rec_gd_nn} always leaves the projection
+of $\bfw_k$ onto $\ker(X)$ fixed. The assumption $\bfw_1 \perp \ker(X)$ requires
+setting this projection to zero, which then gives the norm-minimal
+initialization among all vectors with the same orthogonal component. The
+gradient descent steps simply preserve this minimality, as shown in Lemma
+\ref{lem::fixp_conv}.
+
+The convergence rate in Lemma \ref{lem::conv_gd} depends on the choice of
+step-sizes $\alpha_k$. For example, a constant $\alpha_k = \alpha$ leads to
+convergence at the rate $e^{-k}$, whereas linearly decaying step-sizes $\alpha_k
+= \alpha / k$ yield the rate $k^{- \alpha}$ since $\sum_{\ell = 1}^k \alpha /
+\ell \approx \alpha \cdot \log(k)$ for large enough $k$. In contrast, generic
+convergence results for full-batch gradient descent on convex functions only
+achieve the rate $k\inv$, even for constant step-sizes (Theorem 3.4 of
+\cite{garrigos_gower_2024}).
+
+\subsection{Random Weighting as a Generalization of Stochastic Gradient
+Descent}
+
+In practice, heavily over-parametrized models are often trained by evaluating
+the gradient only on a subset of the available data during each iteration, due
+to prohibitive cost of computing the full-batch gradient. This adds additional
+noise to the gradient descent recursion and may be interpreted as a $\{0,
+1\}$-valued random weighting of the data points. More precisely, given an
+initial guess $\whweight_1$ and step-sizes $\alpha_k > 0$, the randomly weighted
+gradient descent iterates are defined as \begin{align}
+  \label{eq::wgd_def}
+  \whweight_{k + 1} = \whweight_k - \dfrac{\alpha_k}{2} \cdot
+  \nabla_{\whweight_k} \norm[\big]{D_k \big(\bfY - X \whweight_k\big)}_2^2 =
+  \big(I - \alpha_k \cdot X\tran D_k^2 X\big) \whweight_k + \alpha_k \cdot
+  X\tran D_k^2 \bfY,
+\end{align} with each $D_k$ an independent copy of a random $n \times n$
+diagonal matrix $D$. During every iteration, this updates the parameter
+$\whweight_k$ according to its fit on the weighted data $D_k X$ and $D_k \bfY$.
+This definition includes various commonly used stochastic gradient descent
+methods. If the diagonal entries of $D$ take their values in $\{0, 1\}$, then
+sampling $D X$ and $D \bfY$ randomly selects a mini-batch from the available
+data on which to perform the gradient update. For the most basic instance of
+stochastic gradient descent, we may take $D$ as having a single entry equaling
+$1$ with uniform probability $1 / n$. Further possibilities include weighting
+the probabilities $\bbP(D_{ii} = 1)$ by the sensitivity of the loss
+\eqref{eq::lls_obj} to a change in fit on the $i$\textsuperscript{th} data
+point, which leads to the importance sampling scheme used in
+\cite{needell_srebro_et_al_2014}, or simply taking $D_{ii} \sim \Ber(p)$ to
+generate mini-batches of random size, as employed in the stochastic
+Metropolis-Hastings algorithm of \cite{bieringer_kasieczka_et_al_2023}.
+
+We will first analyze the convergence of $\whweight_k$ for a generic random
+weighting and then discuss implications for specific schemes. For now, we shall
+only require that $D$ has finite moments $M_p = \E[D^p]$ up to $p \leq 4$. As
+$D_k$ appears squared in \eqref{eq::wgd_def}, this ensures that the iterates
+admit a well-defined covariance matrix. Due to independence of the $D_k$, each
+randomized loss $\norm{D_k \bfY - D_k X \weight}_2^2$ represents a Monte-Carlo
+estimate of \begin{align}
+  \label{eq::loss_exp}
+  \E_D\Big[\norm[\big]{D \bfY - D X \weight}_2^2\Big] = \weight\tran X\tran
+  \E\big[D^2\big] X \weight - 2 \bfY\tran \E\big[D^2\big] X \weight + \bfY\tran
+  \E\big[D^2\big] \bfY = \norm[\Big]{\sqrt{M_2} \bfY - \sqrt{M_2} X
+  \weight}_2^2,
+\end{align} where $M^{1 / 2}$ denotes the unique positive semi-definite square
+root of $M_2$. For compactness sake, we will write $\whY = M_2^{1 / 2} \bfY$,
+$\whX = M_2^{1 / 2} X$, and $\whbbX = X\tran M_2 X$. The minimum-norm minimizer
+of \eqref{eq::loss_exp} satisfies $\whweight = \whX\pinv \whY$, see Lemma
+\ref{lem::pinv_c}. It then seems conceivable that $\whweight_k$ converges to
+$\whweight$ in the sense that $\E_D\big[\norm{\whweight_k - \whweight}_2^2\big]$
+vanishes as $k \to \infty$. Here, the expectation over $D$ refers to the
+marginalization over the whole sequence of weighting matrices $D_1, D_2 \ldots$
+that is sampled to generate the iterates $\whweight_k$. Indeed, the gradient
+descent iterates may be expressed as \begin{align}
+  \label{eq::gd_rw}
+  \whweight_{k + 1} = \whweight_1 - \sum_{\ell = 1}^k \dfrac{\alpha_\ell}{2}
+  \cdot \nabla_{\whweight_\ell} \norm[\big]{D_\ell \big(\bfY - X
+  \whweight_\ell\big)}_2^2,
+\end{align} suggesting that the contribution of the squared weighting matrices
+$D_\ell^2$ could asymptotically average out to $M_2$ due to their independence.
+Unfortunately, the situation is slightly more complicated. In analogy with
+\eqref{eq::rec_gd_nn}, we may rewrite the gradient descent recursion
+\eqref{eq::wgd_def} as \begin{align}
+  \label{eq::gd_var}
+  \whweight_{k + 1} - \whweight = \big(I - \alpha_k \cdot X\tran D_k^2 X\big)
+  \big(\whweight_k - \whweight\big) + \alpha_k \cdot X\tran D_k^2 \big(\bfY -
+  X \whweight\big).
+\end{align} In the noiseless case \eqref{eq::rec_gd_nn}, the resulting recursion
+takes a linear form, whereas \eqref{eq::gd_var} features an affine shift,
+determined by the stochastic process $X\tran D_k^2 (\bfY - X \whweight)$. This
+represents the differences $\whweight_k - \whweight$ as a vector auto-regressive
+(VAR) process with random coefficients, mirroring the situation encountered in
+the study of linear regression with dropout \cite{clara_langer_et_al_2024}. The
+random linear operators $\big(I - \alpha_k \cdot X\tran D_k^2 X\big)$ and random
+shifts $X\tran D_k^2 \big(\bfY - X \whweight\big)$ feature significant
+correlation, making it a priori unclear whether a result analogous to Lemma
+\ref{lem::conv_gd} holds.
+
+To conclude this section, we briefly discuss how the expression $X\tran D_k^2
+\big(\bfY - X \whweight\big)$ relates to the ``residual quantity at the
+minimum'' that appeared in \cite{needell_srebro_et_al_2014}. For a generic
+$\mu$-strongly convex loss $f(\bfx) = \E_D\big[f_i(\bfx)\big]$, where $i \sim D$
+is a distribution over finitely many individual losses $f_i$, this quantity is
+defined as $\E_D\big[\norm{\nabla f_i(\bfx_*)}_2^2\big]$, with $\bfx_*$ denoting
+the unique global minimum of $f$. The main result of
+\cite{needell_srebro_et_al_2014} then shows that the stochastic gradient descent
+iterates $\bfx_{k + 1} - \alpha \cdot \nabla f_{i_k}(\bfx_k)$, $i_k \sim
+D$ satisfy \begin{align}
+  \label{eq::res_conv}
+  \E_D\Big[\norm[\big]{\bfx_k - \bfx_*}_2^2\Big] \approx O\Big(e^{- \alpha \mu
+  \cdot k}\Big) + O\Big(\alpha \cdot \E_D\big[\norm{\nabla
+  f_i(\bfx_*)}_2^2\big]\Big),
+\end{align} where we have omitted some constants related to the smoothness of
+the $f_i$. Consequently, a non-zero residual acts as a fundamental lower-bound
+to the estimation of $\bfx_*$ via constant step-size stochastic gradient
+schemes. To achieve a desired accuracy in squared norm, the second term in the
+previous display must be controlled via the step-size $\alpha$. The gradient of
+$\norm{D \bfY - D X \bfw}_2^2$ at $\whweight$ evaluates to $X\tran D^2 \big(\bfY
+- X \whweight\big)$, so the second moment of the random shift in
+\eqref{eq::gd_var} represents the residual quantity for the randomly weighted
+iterates \eqref{eq::wgd_def}. As a by-product of our convergence analysis in the
+next section, we will obtain a statement analogous to \eqref{eq::res_conv} for
+our specific setting.
+
+\section{Convergence Analysis for Generic Random Weightings}
+\label{sec::conv_res_iso}
+
+We will now focus on analyzing the convergence of the random dynamical system in
+\eqref{eq::gd_var}, without making a specific distributional assumption on the
+random weighting matrix $D$. As in the previous section, we use the shorthand
+notations $\whY = M_2^{1 / 2} \bfY$, $\whX = M_2^{1 / 2} X$, $\whbbX = X\tran
+M_2 X$, and $\whweight = \whX\pinv \whY$, as well as $\bbE_D$ for the
+expectation with respect to the random matrices $D_k \sim D$, $k \geq 1$.
+
+\subsection{Convergence of the First and Second Moments}
+
+Our first goal is to assess convergence of the expectation and covariance of
+$\whweight_k - X\pinv \bfY$. In addition to the random weighting matrix $D$
+having finite fourth moment, we suppose the following standing assumptions hold,
+which parallel the requirements of Lemma \ref{lem::conv_gd}.
+
+\begin{assumption}
+  \label{ass::conv_iso}
+  \begin{enumerate}
+    \item The step sizes satisfy $\sup_{\ell} \alpha_\ell \cdot \norm{\whbbX} <
+      1$ and $\sum_{\ell = 0}^\infty \alpha_\ell = \infty$. \label{ass::conv_a}
+    \item The initial guess $\whweight_1$ almost surely lies in the orthogonal
+      complement of $\ker(\whX)$. \label{ass::conv_b}
+  \end{enumerate}
+\end{assumption}
+
+Assumption \ref{ass::conv_b} also entails $\whweight_1 \perp \ker(X)$ almost
+surely. If $\bfv$ denotes some random vector concentrated on $\ker(X)$, then
+\begin{align*}
+  \big(I - \alpha_k \cdot X\tran D_k^2 X\big) \big(\whweight_k + \bfv\big) =
+  \big(I - \alpha_k \cdot X\tran D_k^2 X\big) \whweight_k + \bfv
+\end{align*} and so the recursion \eqref{eq::gd_var} can never the change the
+orthogonal projection of $\whweight_k - \whweight$ onto $\ker(X)$. This does not
+necessarily hold true for $\ker(\whX)$. The latter may not admit a clear
+relation with the random sub-space $\ker(D X)$, unless we make restrictive
+assumptions on the support of $D$. For example, almost sure invertibility of $D$
+would allow replacement of $\whX$ with $X$ in Assumption \ref{ass::conv_b}.
+
+As in the analysis of linear regression with dropout
+\cite{clara_langer_et_al_2024}, we start by marginalizing the contribution of
+the weighting matrices $D_k$ to the evolution of the random dynamical system
+\eqref{eq::gd_var}. By definition, $\E_D\big[I - \alpha_k \cdot X\tran D_k^2
+X\big] = I - \alpha_k \cdot \whbbX$ and so independence of the weighting
+matrices implies \begin{equation}
+  \label{eq::exp_lin}
+  \begin{split}
+    \E_D\Big[\big(I - \alpha_k \cdot X\tran D_k^2 X\big) \big(\whweight_k -
+    \whweight\big)\Big] &= \E_D\Bigg[\E_D\Big[\big(I - \alpha_k \cdot X\tran
+    D_k^2 X\big) \big(\whweight_k - \whweight\big) \bigmid
+    \whweight_k\Big]\Bigg]\\
+    &= \big(I - \alpha_k \cdot \whbbX\big) \E_D\big[\whweight_k -
+    \whweight\big].
+  \end{split}
+\end{equation} Consequently, the marginalized linear part of the affine
+dynamical system \eqref{eq::gd_var} acts analogous to the noiseless recursion
+\eqref{eq::wgd_def}, with the weighted Gram matrix $\whbbX$ replacing $\bbX$.
+Further, the random affine shift in \eqref{eq::gd_var} vanishes in mean since
+\begin{align}
+  \label{eq::exp_shift}
+  \E_D\Big[X\tran D_k^2 \big(\bfY - X \whweight\big)\Big] = X\tran M_2 \big(\bfY
+  - X \whweight\big) = \whX\tran \whY - \whbbX \whweight = \mathbf{0},
+\end{align} where the last equality follows from Lemma \ref{lem::pinv_a} and
+the definition of $\whweight$ together implying $\whbbX \whweight = \whbbX
+\whX\pinv \whY = \whX\tran \whY$. Hence, marginalizing the algorithmic noise in
+\eqref{eq::gd_var} yields a linear dynamical system that satisfies a
+convergence result paralleling Lemma \ref{lem::conv_gd}.
+
+\begin{lemma}
+  \label{lem::conv_exp_iso}
+  Under Assumption \ref{ass::conv_iso}, for every $k \geq 1$
+  \begin{align*}
+    \norm[\Big]{\E_D\big[\whweight_{k + 1} - \whweight\big]}_2 \leq \exp \left(-
+    \sigminp(\bbX) \cdot \sum_{\ell = 1}^k \alpha_\ell\right) \cdot
+    \norm[\big]{\whweight_1 - \whweight}_2.
+  \end{align*}
+\end{lemma}
+
+With the marginalized dynamics taken care of in Lemma \ref{lem::conv_exp_iso},
+we move on to assess how the differences $\whweight_k - \whweight$ diffuse
+around their expectations $\E_D\big[\whweight_k - \whweight\big]$ due to the
+random weighting $D_k$. Since the dynamics of $\whweight_k - \whweight$ admit
+the affine representation \eqref{eq::gd_var}, we may expect to discover an
+affine structure in the evolution of the second moments $\E_D\big[(\whweight_k -
+\whweight) (\whweight_k - \whweight)\tran\big]$. This turns out to be almost
+true, up to a vanishing remainder term. We recall that $A \odot B$ denotes the
+element-wise product of two matrices.
+
+\begin{lemma}
+  \label{lem::var_op_iso}
+  Write $\Sigma_D$ for the covariance matrix of the random vector
+  $\big(D_{11}^2, \ldots, D_{dd}^2\big)$ and consider the parametrized family
+  $S_\alpha(\ \cdot\ )$, $\alpha > 0$ of affine operators acting on $(d \times
+  d)$-matrices via \begin{align*}
+    S_\alpha(A) = \big(I - \alpha \cdot \whbbX\big) A \big(I - \alpha \cdot
+    \whbbX\big) + \alpha^2 \cdot X\tran \Bigg(\Sigma_D \odot \bigg(X A X\tran +
+    \big(\bfY - X \whweight\big) \big(\bfY - X \whweight\big)\tran\bigg)\Bigg)
+    X.
+  \end{align*} Under Assumption \ref{ass::conv_b}, for every $k \geq 1$, there
+  exists a symmetric $(d \times d)$-matrix $\rho_k$ such that $\ker(X) \subset
+  \ker(\rho_k)$ and \begin{align*}
+    \E_D\Big[\big(\whweight_{k + 1} - \whweight\big) \big(\whweight_{k + 1} -
+    \whweight\big)\tran\Big] - S_{\alpha_k}\Bigg(\E_D\Big[\big(\whweight_k -
+    \whweight\big) \big(\whweight_k - \whweight\big)\tran\Big]\Bigg) = \rho_k,
+  \end{align*} If in addition Assumption \ref{ass::conv_a} holds, then for $k >
+  1$ the remainder term vanishes at the rate \begin{align*}
+    \norm[\big]{\rho_k} \leq 2 \alpha_k^2 \cdot \norm{X}^3 \cdot \norm{\Sigma_D}
+    \cdot \exp \left(- \sigminp(\bbX) \cdot \sum_{\ell = 1}^{k - 1}
+    \alpha_\ell\right) \cdot \norm[\big]{\whweight_1 - \whweight}_2 \cdot
+    \norm[\big]{\bfY - X \whweight}_2.
+  \end{align*}
+\end{lemma} Lemma \ref{lem::var_op_iso} may be summarized as follows: up to an
+exponentially small remainder term, the second moment of $\whweight_{k + 1} -
+\whweight$ evolves as an affine dynamical system, pushed forward by the
+time-dependent maps $S_{\alpha_k}$. For constant step-sizes $\alpha_k = \alpha$,
+the iteration map $S_\alpha$ stays unchanged in time. As a shorthand, we will
+use $\Sint_{\alpha_k} = S_{\alpha_k}(0)$ and $\Slin_{\alpha_k}(\ \cdot\ ) =
+S_{\alpha_k}(\ \cdot\ )- \Sint_{\alpha_k}$ to refer to the intercept and linear
+part of each affine map $S_{\alpha_k}$. Both $S_{\alpha_k}$ and $\rho_k$ may be
+computed directly from the VAR representation \eqref{eq::gd_var}. In abstract
+terms, \eqref{eq::gd_var} takes the form $\bfz_{k + 1} = G_k(\bfz_k) +
+\bm{\xi}_k$, with $G_k$ and $\bm{\xi}_k$ sequences of independent random linear
+operators and affine shifts, meaning \begin{align*}
+  \bfz_{k + 1} \bfz_{k + 1}\tran = G_k(\bfz_k) G_k(\bfz_k)\tran + \bm{\xi}_k
+  \bm{\xi}_k\tran + G_k(\bfz_k) \bm{\xi}_k\tran + \bm{\xi}_k G_k(\bfz_k)\tran.
+\end{align*} The linear operator $\Slin_{\alpha_k}$ then corresponds to the
+second moment of $G_{k}(\bfz_k)$ and the intercept $\Sint_{\alpha_k}$ to the
+second moment of $\bm{\xi}_k$. The remainder $\rho_k$ consists of the
+cross-multiplied terms, which can be shown to vanish via Lemma
+\ref{lem::conv_exp_iso}.
+
+We may now proceed to derive a limiting expression and a convergence rate for
+the second moment of $\whweight_k - \whweight$ by unraveling the recursion in
+Lemma \ref{lem::var_op_iso}. The affine maps $S_{\alpha_k}$ depend on the
+sequence of chosen step-sizes, so the limit will also depend on this choice. For
+the sake of simplicity, we present limits for two classical approaches:
+square-summable and constant step-sizes. As an intermediate step in proving the
+next result, a limiting expression for generic step-sizes is given in Lemma
+\ref{lem::var_ass}.
+
+\begin{theorem}
+  \label{thm::var_conv_iso}
+  In addition to Assumption \ref{ass::conv_iso}, suppose \begin{align*}
+    \sup_{\ell} \alpha_\ell < \dfrac{\sigminp(\whbbX)}{\sigminp(\whbbX)^2 +
+    \norm{X}^4 \cdot \norm{\Sigma_D}},
+  \end{align*} then the following hold: \begin{enumerate}
+  \item If $\sum_{\ell = 1}^\infty \alpha_\ell^2 < \infty$, then the second
+    moment of $\whweight_{k + 1} - \whweight$ vanishes as $k \to \infty$. In
+    particular, if $\alpha_k = \alpha / k$ for some $\alpha > 0$, then there
+    exists a constant $C_1$ that depends on $X$, $Y$, $\whweight_1$, $\alpha$
+    and the first four moments of $D$, such that \begin{align*}
+        \norm[\Bigg]{\E\Big[\big(\whweight_{k + 1} - \whweight\big)
+        \big(\whweight_{k + 1} - \whweight\big)\tran\Big]} \leq C_1 \cdot
+        \dfrac{1}{k^{\alpha \sigminp(\whbbX)}}.
+      \end{align*} \label{thm::var_conv_iso_a}
+    \item If $\alpha_k = \alpha$ for every $k$, then there exists a finite
+      constant $C_2$ that depends on $X$, $Y$, $\whweight_1$, $\alpha$, and the
+      first four moments of $D$, such that \begin{align*}
+        \norm[\Bigg]{\E\Big[\big(\whweight_{k + 1} - \whweight\big)
+        \big(\whweight_{k + 1} - \whweight\big)\tran\Big] - \big(\id -
+        \Slin_\alpha\big)\inv_{\ker(X)} \big(\Sint_\alpha\big)} \leq C_2 \cdot
+        \big(2 + k \alpha^2\big) \cdot \exp\Big(- \alpha \sigminp(\whbbX) \cdot
+        \big(k - 1\big)\Big),
+      \end{align*} where $(\ \cdot\ )_{\ker(X)}\inv$ refers to inversion on the
+      sub-space of matrices $A$ satisfying $\ker(X) \subset \ker(A)$.
+      \label{thm::var_conv_iso_b}
+  \end{enumerate}
+\end{theorem}
+
+For an explicit statement of the constants $C_1$ and $C_2$, see the proof of
+Theorem \ref{thm::var_conv_iso}. Square summability of the step-sizes is also
+known as the Robbins-Monro condition, after the seminal work
+\cite{robbins_monro_1951}. The randomized gradient in \eqref{eq::gd_rw} always
+appears scaled by $\alpha_k / 2$, so its variance admits control via
+$\alpha_k^2$. Square summability then ensures that the randomized gradients
+converge to their expectations sufficiently fast as $k \to \infty$. In this
+case, the (deterministic) vector field of the expected gradients asymptotically
+dominates the dynamics, which yields convergence to a critical point of the
+underlying loss in quite general settings \cite{davis_drusvyatskiy_et_al_2020,
+dereich_kassing_2024}. In our setting, the only critical point reachable from an
+initialization $\whweight_1 \perp \ker(\whX)$ is $\whweight$. Convergence in
+spectral norm, as in Theorem \ref{thm::var_conv_iso_a} also entails convergence
+in second mean since \begin{align*}
+  \E_D\Big[\norm[\big]{\whweight_k - \whweight}_2^2\Big] =
+  \Tr\Bigg(\E\Big[\big(\whweight_{k + 1} - \whweight\big) \big(\whweight_{k + 1}
+  - \whweight\big)\tran\Big]\Bigg).
+\end{align*} For constant step-sizes, Theorem \ref{thm::var_conv_iso_b} shows
+that the latter trace cannot vanish, unless the matrix $(\id -
+\Slin_\alpha)\inv_{\ker(X)} (\Sint_\alpha)$ is nilpotent. As discussed in the
+final paragraph of Section \ref{sec::grad_desc}, this relates to the residual
+quantity at the minimum in \cite{needell_srebro_et_al_2014}. Taking the trace
+yields a result analogous to \eqref{eq::res_conv}, with the slightly slower rate
+$O\big(k \cdot e^{- k}\big)$. This is due to Theorem \ref{thm::var_conv_iso_b}
+proving a stronger form of convergence via the spectral norm, whereas
+\cite{needell_srebro_et_al_2014} exploit the co-coercivity of smooth functions
+to receive the rate $O\big(e^{- k}\big)$, which only holds in the squared norm
+$\E_D\big[\norm{\whweight_k - \whweight}_2^2\big]$.
+
+\subsection{Geometric Moment Contraction and Stationary Distributions}
+
+Together, Lemma \ref{lem::conv_exp_iso} and Theorem \ref{thm::var_conv_iso} show
+that the first two moments of $\whweight_k$ converges as $k \to \infty$, but
+this does not by itself imply the existence of a well-defined limit for the
+distribution of $\whweight_k$. Under square-summable step-sizes, Theorem
+\ref{thm::var_conv_iso_b} yields convergence to a point mass. For constant
+step-sizes, stochastic gradient descent may admit non-degenerate long-run
+distributions that reflect the local geometry of the underlying loss function
+\cite{azizian_iutzeler_et_al_2024}.
+
+We will analyze the long-run distribution of the random dynamical system
+\eqref{eq::gd_var} by adapting the techniques used in
+\cite{li_schmidt-hieber_et_al_2024}. Fix two suitable measures $\mu$ and $\nu$.
+We now define the coupled stochastic processes $\whu_k$ and $\whv_k$,
+initialized by $\whu_1 \sim \mu$ and $\whv_1 \sim \nu$, that each obey the
+recursion \eqref{eq::gd_rw} with exactly the same sequence of outcomes $D_1,
+D_2, \ldots$ for the random weighting matrices. Following
+\cite{li_schmidt-hieber_et_al_2024}, the gradient descent iterates are said to
+satisfy \textit{geometric moment contraction} (GMC) if \begin{align}
+  \label{eq::gmc}
+  \E_D\Big[\norm[\big]{\whu_{k + 1} - \whv_{k + 1}}_2^q\Big]^{1 / q} = r_q^k
+  \cdot \norm[\big]{\whu_1 - \whv_1}_2^q
+\end{align} for some constant $r_q \in (0, 1)$ and all $q \geq 1$ that admit a
+finite left-hand side expectation. The GMC property is a key tool in the
+analysis of iterated random functions, for example by ensuring the existence of
+unique stationary distributions, see \cite{wu_shao_2004} for further details.
+
+We emphasize that \eqref{eq::gmc} only concerns the algorithmic randomness,
+without reference to the initial distribution, or any further randomness
+inherent to the data $(X, \bfY)$. It is possible to account for the latter, see
+\cite{li_schmidt-hieber_et_al_2024}, but we are mainly interested in the
+algorithmic randomness, so we do not model the data generation process further.
+For $r_q$ independent of the initial distributions $\mu$ and $\nu$, we may
+integrate over the product measure $\mu \otimes \nu$ on both sides of
+\eqref{eq::gmc}, which by Fubini's Theorem yields geometric moment contraction
+with respect to the joint distribution of $\whu_1$, $\whv_1$, and $D$. To prove
+the GMC property, we will use the following assumptions:
+
+\begin{assumption}
+  \label{ass::gmc}
+  \begin{enumerate}
+    \item The diagonal matrix $M_2 = \E\big[D^2\big]$ is invertible and
+      $\whweight_1 \perp \ker(X)$ almost surely. \label{ass::gmc_a}
+    \item The distribution of $D$ has compact support, meaning $\norm{D} \leq
+      \sigma$ almost surely for some $\sigma < \infty$. \label{ass::gmc_b}
+    \item The algorithm \eqref{eq::gd_rw} is run with constant step-sizes
+      $\alpha_k = \alpha$ that satisfy $\alpha \sigma^2 \cdot \norm{\bbX} < 2$.
+      \label{ass::gmc_c}
+  \end{enumerate}
+\end{assumption}
+
+\begin{theorem}
+  \label{thm::stat_dist}
+  Suppose Assumption \ref{ass::gmc} holds, then the gradient descent iterates
+  satisfy \eqref{eq::gmc} with \begin{align*}
+    r_q^q \leq 1 - \alpha \cdot \big(2 - \alpha \sigma^2 \cdot \norm{\bbX}\big)
+    \cdot \sigminp(\whbbX) < 1.
+  \end{align*} Consequently, the iterates \eqref{eq::gd_rw} admit a unique
+  stationary distribution that does not depend on the initialization. If
+  $\widehat{\mu}_k$ and $\widehat{\mu}_\infty$ respectively denote the measures
+  induced by $\whweight_k$ and a random vector following the stationary
+  distribution, then \begin{align*}
+    \calW_q\big(\widehat{\mu}_k, \widehat{\mu}_\infty\big) \leq C_3 \cdot
+    \exp\left(- \dfrac{\alpha \cdot \big(2 - \alpha \sigma^2 \cdot
+    \norm{\bbX}\big) \cdot \sigminp(\whbbX)}{q} \cdot k\right)
+  \end{align*} for all $q \geq 1$, with constant $C_3 > 0$ depending only on
+  $(???)$.
+\end{theorem}
+
+\subsection{A Quenched Central Limit Theorem for the Averaged Iterates}
+
+\section{Simulation Study}
+
+\section{Discussion and Outlook}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\printbibliography
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+
+\section{Proofs for Section \ref{sec::grad_desc}}
+\label{sec::grad_desc_proof}
+
+\subsection{Proof of Lemma \ref{lem::conv_gd}}
+
+As shown in \eqref{eq::rec_gd_nn}, $\bfw_{k + 1} - X\pinv \bfY = (I - \alpha_k
+\cdot \bbX) (\bfw_k - X\pinv \bfY)$ for every $k$. Combining the assumption
+$\bfw_1 \perp \ker(X)$ with Lemma \ref{lem::pinv_c} shows that $\bfw_1 - X\pinv
+\bfY \perp \ker(X)$. Since $\sup_{\ell} \alpha_\ell \cdot \norm{\bbX} < 1$,
+Lemma \ref{lem::fixp_conv} and induction on $k$ then yield $\bfw_k - X\pinv \bfY
+\perp \ker(X)$ for all $k$ while giving the desired estimate \begin{align*}
+  \norm[\big]{\weight_{k + 1} - X\pinv \bfY}_2 \leq \left(\prod_{\ell = 1}^k
+  \big(1 - \alpha_\ell \cdot \sigminp(\bbX)\big)\right) \cdot
+  \norm[\big]{\weight_1 - X\pinv \bfY}_2.
+\end{align*} To complete the proof it now suffices to apply Lemma
+\ref{lem::misc_a}.
+
+\section{Proofs for Section \ref{sec::conv_res_iso}}
+
+\subsection{Proof of Lemma \ref{lem::conv_exp_iso}}
+
+Combining the conditional expectations \eqref{eq::exp_lin} and
+\eqref{eq::exp_shift} with the VAR representation \eqref{eq::gd_var},
+independence of the random weighting matrices $D_k$ implies \begin{align}
+  \label{eq::exp_rec}
+  \E_D\big[\whweight_{k + 1} - \whweight\big] = \big(I - \alpha_k \cdot
+  \whbbX\big) \E_D\big[\whweight_k - \whweight\big]
+\end{align} for every $k \geq 1$. From here, the proof follows the same steps
+as the proof of Lemma \ref{lem::conv_gd}. Assumption \ref{ass::conv_b} and Lemma
+\ref{lem::pinv_b} show that $\E_D\big[\whweight_1 - \whweight\big] \perp
+\ker(\whX)$, so we may use Lemma \ref{lem::fixp_conv} and induction on $k$ to
+show that $\E_D\big[\whweight_k - \whweight\big] \perp \ker(\whX)$ for all $k$.
+Lemma \ref{lem::fixp_conv} also gives the estimate \begin{align*}
+  \norm[\Big]{\E_D\big[\whweight_{k + 1} - \whweight\big]}_2 \leq
+  \left(\prod_{\ell = 1}^k \Big(1 - \alpha_\ell \cdot
+  \sigminp(\whbbX)\Big)\right) \cdot \norm[\big]{\whweight_1 - \whweight\big]}_2
+\end{align*} with each $1 - \alpha_\ell \cdot \sigminp(\whbbX)$ contained in
+$(0, 1)$ due to Assumption \ref{ass::conv_a}. Together with Lemma
+\ref{lem::misc_a}, this finishes the proof.
+
+\subsection{Proof of Lemma \ref{lem::var_op_iso}}
+
+Throughout this proof, we write $A_k$ for the second moment of $\whweight_k -
+\whweight$ with respect to $\E_D$. For any random vectors $\bfU$ and $\bfV$, the
+law of total covariance yields \begin{align}
+  \E\big[\bfU \bfU\tran\big] &= \Cov(\bfU) + \E[\bfU] \E[\bfU]\tran \nonumber\\
+  &= \E\big[\Cov(\bfU \mid \bfV)\big] + \Cov\big(\E[\bfU \mid \bfV]\big) +
+  \E[\bfU] \E[\bfU]\tran \nonumber\\
+  &= \E\big[\Cov(\bfU \mid \bfV)\big] + \E\big[\E[\bfU \mid \bfV] \E[\bfU \mid
+  \bfV]\tran\big] \label{eq::total_cov_id}
+\end{align} Taking $\bfU = \whweight_{k + 1} - \whweight$ and $\bfV =
+\whweight_k$ and employing the same arguments that led to \eqref{eq::exp_lin}
+and \eqref{eq::exp_shift} yields \begin{align*}
+  \E_D\big[\whweight_{k + 1} - \whweight \mid \whweight_k\big] = \E\big[I -
+  \alpha_k \cdot X\tran D_k^2 X\big] \big(\whweight_k - \whweight\big) +
+  \alpha_k \cdot \E_D\big[X\tran D_k^2 \big(\bfY - X \whweight\big) \mid
+  \whweight_k \big] = \big(I - \alpha_k \cdot \whbbX\big) \big(\whweight_k -
+  \whweight\big).
+\end{align*} Writing $\Cov_D$ for the covariance with respect to $\E_D$,
+\eqref{eq::total_cov_id} may then be rewritten as \begin{align}
+  \label{eq::var_rec_cond}
+  A_{k + 1} = \E_D\Big[\Cov_D\big(\whweight_{k + 1} - \whweight \mid
+  \whweight_k\big)\Big] + \big(I - \alpha_k \cdot \whbbX\big) A_k \big(I -
+  \alpha_k \cdot \whbbX\big).
+\end{align} By definition, both $\bfY$ and $\whweight$ are constant with respect
+to the randomness induced via the weighting matrices $D_k \sim D$. Using the VAR
+representation \eqref{eq::gd_var}, the conditional covariance then simplifies to
+\begin{align}
+  \Cov_D\big(\whweight_{k + 1} - \whweight \mid \whweight_k\big) &=
+  \Cov_D\Big(\big(I - \alpha_k \cdot X\tran D_k^2 X\big) \big(\whweight_k -
+  \whweight\big) + \alpha_k \cdot X\tran D_k^2 \big(\bfY - X \whweight\big)
+  \bigmid \whweight_k\Big) \nonumber\\
+  &= \alpha_k^2 \cdot X\tran \Cov_D\bigg( D_k^2 \Big( - X \big(\whweight_k -
+  \whweight\big) + \bfY - X \whweight\Big) \bigmid \whweight_k\bigg) X.
+  \label{eq::cov_cond}
+\end{align} To compute the latter expression, we proceed by proving a short
+technical lemma.
+
+\begin{lemma}
+  \label{lem::cov_diag}
+  Let a deterministic vector $\bfu$ and a random diagonal matrix $D$ of matching
+  dimension be given. Suppose $\E[D^p]$ exists for each $p = 1, \ldots, 4$ and
+  write $\bfd$ for the vector with entries $D_{ii}^2$, then $\Sigma_D =
+  \Cov(\bfd)$ is well-defined and \begin{align*}
+    \Cov\big(D^2 \bfu\big) = \Sigma_D \odot \bfu \bfu\tran,
+  \end{align*} where $A \odot B$ denotes the element-wise product $(A \odot
+  B)_{ij} = A_{ij} B_{ij}$.
+\end{lemma}
+
+\begin{proof}
+  Using the definition of the covariance matrix of a random vector, symmetry of
+  diagonal matrices implies \begin{align*}
+    \Cov\big(D^2 \bfu\big) = \E\big[D^2 \bfu \bfu\tran D^2\big] - \E\big[D^2
+    \bfu\big] \E\big[D^2 \bfu\big]\tran
+  \end{align*} The entries of the right-hand side matrices satisfy
+  \begin{align*}
+    E\big[D^2 \bfu \bfu\tran D^2\big]_{ij} &= \begin{cases}
+      \E\big[D^4_{ii}\big] \cdot \big(\bfu \bfu\tran\big)_{ii} & \mbox{ if } i =
+      j\\
+      \E\big[D^2_{ii} D^2_{jj}\big] \cdot \big(\bfu \bfu\tran\big)_{ij} & \mbox{
+      if } i \neq j
+    \end{cases}\\
+    \Big(\E\big[D^2 \bfu\big] \E\big[D^2 \bfu\big]\tran\Big)_{ij} &=
+    \begin{cases}
+      \E\big[D^2_{ii}\big]^2 \cdot \big(\bfu \bfu\tran\big)_{ii} & \mbox{ if } i
+      = j\\
+      \E\big[D^2_{ii}\big] \E\big[D^2_{jj}\big] \cdot \big(\bfu
+      \bfu\tran\big)_{ij} & \mbox{ if } i \neq j.
+    \end{cases}
+  \end{align*} Subtracting the respective entries now yields the claimed
+  element-wise identity \begin{align*}
+    \Cov\big(D^2 \bfu\big)_{ij} = \Big(\E\big[D^2_{ii} D^2_{jj}\big] -
+    \E\big[D_{ii}^2\big] \E\big[D_{jj}^2\big]\Big) \cdot \big(\bfu
+    \bfu\tran\big)_{ij} = \Cov\big(D_{ii}^2, D_{jj}^2\big) \cdot \big(\bfu
+    \bfu\tran\big)_{ij},
+  \end{align*} where the right-hand side equals the $(i, j)$-entry of $\Sigma_D
+  \odot \bfu \bfu\tran$.
+\end{proof}
+
+We now apply this lemma with $\bfu = - X (\whweight_k - \whweight) + \bfY - X
+\whweight$, which is independent of $D_k$ when conditioning on $\whweight_k$, so
+\eqref{eq::cov_cond} evaluates to \begin{align*}
+  \alpha_k^2 \cdot X\tran \Cov_D\big(\whweight_{k + 1} - \whweight \mid
+  \whweight_k\big) X &= \alpha_k^2 \cdot X\tran \Bigg(\Sigma_D \odot \Big(X
+  \big(\whweight_k - \whweight\big) \big(\whweight_k - \whweight\big)\tran
+  X\tran + \big(\bfY - X \whweight\big) \big(\bfY - X
+  \whweight\big)\tran\Big)\Bigg) X\\
+  &\qquad - \alpha_k^2 \cdot X\tran \Bigg(\Sigma_D \odot \Big(X \big(\whweight_k
+  - \whweight\big) \big(\bfY - X \whweight\big)\tran + \big(\bfY - X
+  \whweight\big) \big(\whweight_k - \whweight\big)\tran X\tran\Big)\Bigg) X
+\end{align*} with $\Sigma_D$ the covariance matrix of $\big(D_{11}^2, \ldots,
+D_{dd}^2\big)$, as defined in Lemma \ref{lem::cov_diag}. Combining this
+computation with \eqref{eq::var_rec_cond} and exchanging the expectation
+$\bbE_D$ with the linear operator $A \mapsto X\tran \big(\Sigma_D \odot X A
+X\tran \big) X$ now results in the recursion \begin{align}
+  A_{k + 1} &= \big(I - \alpha_k \cdot \whbbX\big) A_k \big(I - \alpha_k \cdot
+  \whbbX\big) + \alpha_k^2 \cdot X\tran \Bigg(\Sigma_D \odot \bigg(X A_k X\tran
+  + \big(\bfY - X \whweight\big) \big(\bfY - X \whweight\big)\tran\bigg)\Bigg) X
+  \nonumber\\
+  &\qquad - \E_D\Bigg[\alpha_k^2 \cdot X\tran \Bigg(\Sigma_D \odot \Big(X
+  \big(\whweight_k - \whweight\big) \big(\bfY - X \whweight\big)\tran +
+  \big(\bfY - X \whweight\big) \big(\whweight_k - \whweight\big)\tran
+  X\tran\Big)\Bigg) X\Bigg] \nonumber\\
+  &= S_{\alpha_k}\big(A_k\big) - \underbrace{\alpha_k^2 \cdot X\tran
+  \Bigg(\Sigma_D \odot \bigg(X \E_D\Big[\big(\whweight_k - \whweight\big)
+  \big(\bfY - X \whweight\big)\tran\Big] + \E_D\Big[\big(\bfY - X \whweight\big)
+  \big(\whweight_k - \whweight\big)\tran\Big] X\tran\Big)\Bigg) X}_{= - \rho_k}.
+  \label{eq::rec_op_rem}
+\end{align} Symmetry of $\rho_k$ and the inclusion $\ker(X) \subset
+\ker(\rho_k)$ follow directly from the previous display, so it remains to
+estimate the norm of this remainder term. To this end, sub-multiplicativity of
+the spectral norm and Lemma \ref{lem::misc_c} yield \begin{align*}
+  \norm[\big]{\rho_k} \leq 2 \alpha_k^2 \cdot \norm{X}^3 \cdot \norm{\Sigma_D}
+  \cdot \norm[\Bigg]{\E_D\Big[\big(\whweight_k - \whweight\big) \big(\bfY - X
+  \whweight\big)\tran\Big]}
+\end{align*} To complete the proof, we may now apply Lemma \ref{lem::misc_b} and
+Lemma \ref{lem::conv_exp_iso} to estimate \begin{align*}
+  \norm[\Bigg]{\E_D\Big[\big(\whweight_k - \whweight\big) \big(\bfY - X
+  \whweight\big)\tran\Big]} &\leq \norm[\Big]{\E_D\big[\whweight_k -
+  \whweight\big]}_2 \cdot \norm[\big]{\bfY - X \whweight}_2\\
+  &\leq \left(\prod_{\ell = 1}^{k - 1} \Big(1 - \alpha_\ell \cdot
+  \sigminp(\whbbX)\Big)\right) \cdot \norm[\big]{\whweight_1 - \whweight}_2
+  \cdot \norm[\big]{\bfY - X \whweight}_2
+\end{align*} which under Assumption \ref{ass::conv_a} vanishes as $k \to \infty$
+by Lemma \ref{lem::misc_a}.
+
+\subsection{Proof of Theorem \ref{thm::var_conv_iso}}
+
+As in the proof of Lemma \ref{lem::var_op_iso}, we write $A_k =
+\E_D\big[(\whweight_k - \whweight) (\whweight_k - \whweight)\tran\big]$. The
+sequence of second moments satisfies $A_{k + 1} = S_{\alpha_k}(A_k) + \rho_k$,
+with the remainder term $\rho_k$ as computed in \eqref{eq::rec_op_rem} vanishing
+as $k \to \infty$. Using induction on $k$, we start by proving that
+\begin{align}
+  \label{eq::rec_unfold}
+  A_{k + 1} = \Slin_{\alpha_k} \circ \cdots \circ \Slin_{\alpha_1}\big(A_1\big)
+  + \sum_{\ell = 1}^k \Slin_{\alpha_k} \circ \cdots \circ \Slin_{\alpha_{\ell +
+  1}} \big(\Sint_{\alpha_\ell}\big) + \sum_{m = 1}^k \Slin_{\alpha_k} \circ
+  \cdots \circ \Slin_{\alpha_{m + 1}}\big(\rho_m\big),
+\end{align} with the convention that the empty composition $\Slin_{\alpha_k}
+\circ \cdots \Slin_{\alpha_{k + 1}}$ gives the identity operator. By definition,
+each $\Slin_{\alpha_k}$ is a linear operator for every $k$ and so $A_2 =
+S_{\alpha_1}(A_1) + \rho_1$ equals $\Slin_{\alpha_1}(A_1) + \Sint_{\alpha_1} +
+\rho_1$, proving the base case. Suppose the result holds up to some $k - 1 \geq
+0$, then Lemma \ref{lem::var_op_iso} and linearity of $\Slin_{\alpha_k}$ imply
+\begin{align*}
+  A_{k + 1} &= S_{\alpha_k}\big(A_k\big) + \rho_k\\
+  &= \Slin_{\alpha_k}\left(\Slin_{\alpha_{k - 1}} \circ \cdots \circ
+  \Slin_{\alpha_1}\big(A_1\big) + \sum_{\ell = 1}^{k - 1} \Slin_{\alpha_{k - 1}}
+  \circ \cdots \circ \Slin_{\alpha_{\ell + 1}} \big(\Sint_{\alpha_\ell}\big) +
+  \sum_{m = 1}^{k - 1} \Slin_{\alpha_{k - 1}} \circ \cdots \circ
+  \Slin_{\alpha_{m + 1}}\big(\rho_m\big)\right) + \Sint_{\alpha_k} + \rho_k\\
+  &= \Slin_{\alpha_k} \circ \cdots \circ \Slin_{\alpha_1}\big(A_1\big) +
+  \sum_{\ell = 1}^{k - 1} \Slin_{\alpha_k} \circ \cdots \circ
+  \Slin_{\alpha_{\ell + 1}} \big(\Sint_{\alpha_\ell}\big) + \sum_{m = 1}^{k - 1}
+  \Slin_{\alpha_k} \circ \cdots \circ \Slin_{\alpha_{m + 1}}\big(\rho_m\big) +
+  \Sint_k + \rho_k\\
+  &= \Slin_{\alpha_k} \circ \cdots \circ \Slin_{\alpha_1}\big(A_1\big) +
+  \sum_{\ell = 1}^k \Slin_{\alpha_k} \circ \cdots \circ \Slin_{\alpha_{\ell +
+  1}} \big(\Sint_{\alpha_\ell}\big) + \sum_{m = 1}^k \Slin_{\alpha_k} \circ
+  \cdots \circ \Slin_{\alpha_{m + 1}}\big(\rho_m\big).
+\end{align*} This proves the induction step and so \eqref{eq::rec_unfold} holds
+for all $k \geq 0$. To proceed, we require a bound on the effective operator
+norms of the linear operators $\Slin_{\alpha_k}$ when applied to $A_0$ and
+$\rho_m$.
+
+\begin{lemma}
+  \label{lem::lin_op_bound}
+  Fix a symmetric $(d \times d)$-matrix $A$ with $\ker(X) \subset \ker(A)$ and
+  \begin{align*}
+    \alpha < \left\{\dfrac{1}{\norm{\whbbX}},
+    \dfrac{\sigminp(\whbbX)}{\sigminp(\whbbX)^2 + \norm{X}^4 \cdot
+    \norm{\Sigma_D}}\right\},
+  \end{align*} then \begin{align*}
+    \norm[\Big]{\Slin_{\alpha}(A)} \leq \big(1 - \alpha \cdot
+    \sigminp(\whbbX)\big) \cdot \norm{A}.
+  \end{align*}
+\end{lemma}
+
+\begin{proof}
+  As $A$ is symmetric and $\Slin_\alpha$ maps the space of symmetric matrices to
+  itself, the singular values of $\Slin_\alpha(A)$ are the magnitudes of its
+  eigenvalues. To bound the latter, we will use the variational characterization
+  of the eigenvalues, see Theorem 4.2.6 in \cite{horn_johnson_2013}. Fix a
+  non-zero unit vector $\bfw$. The definition of $\Slin_\alpha$ entails
+  \begin{align}
+    \label{eq::slin_eig}
+    \bfw\tran \Slin_\alpha(A) \bfw = \bfw\tran \big(I - \alpha \cdot \whbbX\big)
+    A \big(I - \alpha \cdot \whbbX\big) \bfw + \alpha^2 \cdot \bfw\tran X\tran
+    \Big(\Sigma_D \odot \big(X A X\tran\big)\Big) X \bfw
+  \end{align} If $\bfw \in \ker(X)$, then also $\bfw \in \ker(\whbbX)$, so $I -
+  \alpha \cdot \whbbX$ acts as the identity on $\ker(X)$. Together with the
+  assumption $\ker(A) \subset \ker(X)$, this reduces \eqref{eq::slin_eig} to
+  \begin{align}
+    \label{eq::slin_ker}
+    \bfw\tran \Slin_\alpha(A) \bfw = \bfw\tran A \bfw = 0,
+  \end{align} so all non-zero eigenvalues of $\Slin_\alpha(A)$ must correspond
+  to vectors in the orthogonal complement of $\ker(A)$. As $A$ is symmetric, it
+  admits a singular value decomposition of the form $U \Sigma U\tran$, with
+  $\Sigma$ a positive semi-definite $(d \times d)$-diagonal matrix. Accordingly,
+  for any matrix $B$ the Cauchy-Schwarz inequality implies \begin{align*}
+    \abs[\Big]{\bfw B\tran A B\tran \bfw} = \abs[\Big]{\bfw B\tran U
+    \sqrt{\Sigma} U\tran U \sqrt{\Sigma} U\tran B\tran \bfw} \leq \norm[\Big]{U
+    \sqrt{\Sigma} U\tran B \bfw}_2^2 \leq \norm[\big]{U \sqrt{\Sigma} U\tran}^2
+    \cdot \norm[\big]{B \bfw}_2^2 = \norm{A} \cdot \norm[\big]{B \bfw}_2^2
+  \end{align*} Applying a similar argument to the singular value decomposition
+  of the symmetric matrix $\Sigma_D \odot \big(X A X\tran\big)$, we also find
+  that \begin{align*}
+    \abs[\bigg]{\bfw\tran X\tran \Big(\Sigma_D \odot \big(X A X\tran\big)\Big) X
+    \bfw} \leq \norm[\Big]{\Sigma_D \odot \big(X A X\tran\big)} \cdot
+    \norm[\big]{X \bfw}_2^2.
+  \end{align*} Suppose now that $\bfw \perp \ker(X)$, which implies $\bfw \perp
+  \ker(\whbbX)$. Taking the absolute value in \eqref{eq::slin_eig}, inserting
+  the previous computations, as well as applying Lemma \ref{lem::pinv_c} and
+  Lemma \ref{lem::misc_c}, we arrive at the estimate \begin{align*}
+    \abs[\Big]{\bfw\tran \Slin_\alpha(A) \bfw} &\leq \norm{A} \cdot
+    \norm[\Big]{\big(I - \alpha \cdot \whbbX\big) \bfw}_2^2 + \alpha^2 \cdot
+    \norm[\Big]{\Sigma_D \odot \big(X A X\tran\big)} \cdot \norm[\big]{X
+    \bfw}_2^2\\
+    &\leq \bigg(\big(1 - \alpha \cdot \sigminp(\whbbX)\big)^2 + \alpha^2 \cdot
+    \norm{X}^4 \cdot \norm{\Sigma_D}\bigg) \cdot \norm{A},
+  \end{align*} where we recall that the norm of $\bfw$ evaluates to $1$. It now
+  suffices to further bound the scalar multiplying $\norm{A}$ in the previous
+  display, then the variational characterization of eigenvalues completes the
+  proof. Expanding the square and using the assumption on $\alpha$ yields the
+  desired inequality \begin{align*}
+    \big(1 - \alpha \cdot \sigminp(\whbbX)\big)^2 + \alpha^2 \cdot \norm{X}^4
+    \cdot \norm{\Sigma_D} &= 1 - 2 \alpha \cdot \sigminp(\whbbX) + \alpha^2 \cdot
+    \Big(\sigminp(\whbbX)^2 + \norm{X}^4 \cdot \norm{\Sigma_D}\Big)\\
+    &\leq 1 - \alpha \cdot \sigminp(\whbbX).
+  \end{align*}
+\end{proof}
+
+We now return to the expression \eqref{eq::rec_unfold} for $A_{k + 1}$, where we
+will use Lemma \ref{lem::lin_op_bound} to bound the norm of each constituent
+summand, which then yields an expression for $A_{k + 1}$ up to a vanishing
+remainder.
+
+\begin{lemma}
+  \label{lem::var_ass}
+  In addition to Assumption \ref{ass::conv_iso}, suppose $\sup_{\ell}
+  \alpha_\ell$ satisfies the requirements of Lemma \ref{lem::lin_op_bound}.
+  Then, for every $k \geq 1$ \begin{align*}
+    \norm[\Bigg]{A_{k + 1} - \sum_{\ell = 1}^k \Slin_{\alpha_k} \circ \cdots
+    \circ \Slin_{\alpha_{\ell + 1}} \big(\Sint_{\alpha_\ell}\big)} \leq
+    C_0 \cdot \left(1 + \sum_{\ell = 1}^k \alpha_\ell^2\right)
+    \cdot \left(\max_{m = 1 \ldots, k} \prod_{\substack{\ell = 1\\ \ell \neq
+    m}}^{k} \Big(1 - \alpha_\ell \cdot \sigminp(\whbbX)\Big)\right),
+  \end{align*} with constant $C_0 = \norm[\big]{(\whweight_1 - \whweight)
+  (\whweight_1 - \whweight)\tran} + 2 \cdot \norm{X}^3 \cdot \norm{\Sigma_D}
+  \cdot \norm[\big]{\whweight_1 - \whweight}_2 \cdot \norm[\big]{\bfY - X
+  \whweight}_2$.
+\end{lemma}
+
+\begin{proof}
+  As shown in \eqref{eq::slin_ker}, each linear operator $\Slin_{\alpha_\ell}$
+  maps the space of matrices $A$ satisfying $\ker(X) \subset \ker(A)$ to itself.
+  Due to Assumption \ref{ass::conv_b} and Lemma \ref{lem::var_op_iso}, this
+  includes $A_1$ as well as each remainder term $\rho_m$. In turn, repeated
+  application of Lemma \ref{lem::lin_op_bound} yields the estimates
+  \begin{align*}
+    \norm[\Big]{\Slin_{\alpha_k} \circ \cdots \circ \Slin_{\alpha_1}
+    \big(A_1\big)} &\leq \left(\prod_{\ell = 1}^k \big(1 - \alpha_\ell \cdot
+    \sigminp(\whbbX)\big)\right) \cdot \norm{A_1}\\
+    \norm[\Big]{\Slin_{\alpha_k} \circ \cdots \circ \Slin_{\alpha_{m +
+    1}}\big(\rho_m\big)} &\leq \left(\prod_{\ell = m + 1}^k \big(1 - \alpha_\ell
+    \cdot \sigminp(\whbbX)\big)\right) \cdot \norm{\rho_m},
+  \end{align*} valid for every $k \geq 1$ and $m < k$. Together with the
+  estimate for $\norm{\rho_m}$ computed in Lemma \ref{lem::var_op_iso}, we may
+  now rearrange \eqref{eq::rec_unfold} and take the norm to find the desired
+  bound \begin{align*}
+    &\norm[\Bigg]{A_{k + 1} - \sum_{\ell = 1}^k \Slin_{\alpha_k} \circ \cdots
+    \circ \Slin_{\alpha_{\ell + 1}} \big(\Sint_{\alpha_\ell}\big)}\\
+    \leq\ &\left(\prod_{\ell = 1}^k \big(1 - \alpha_\ell \cdot
+    \sigminp(\whbbX)\big)\right) \cdot \norm{A_1} + \sum_{m = 1}^{k}
+    \left(\prod_{\ell = m + 1}^k \big(1 - \alpha_\ell \cdot
+    \sigminp(\whbbX)\big)\right) \cdot \norm{\rho_m}\\
+    \leq\ &\Big(\norm{A_1} + 2 \cdot \norm{X}^3 \cdot \norm{\Sigma_D} \cdot
+    \norm[\big]{\whweight_1 - \whweight}_2 \cdot \norm[\big]{\bfY - X
+    \whweight}_2\Big) \cdot \left(1 + \sum_{\ell = 1}^k \alpha_\ell^2\right)
+    \cdot \left(\max_{m = 1 \ldots, k} \prod_{\substack{\ell = 1\\ \ell \neq
+    m}}^{k} \Big(1 - \alpha_\ell \cdot \sigminp(\whbbX)\Big)\right).
+  \end{align*} This proves the first part of the statement.
+\end{proof}
+
+We will first prove the statement regarding square summable step-sizes in
+Theorem \ref{thm::var_conv_iso_a}. To this end, recall from Lemma
+\ref{lem::var_op_iso} that \begin{align*}
+  \Sint_{\alpha_\ell} = \alpha_\ell^2 \cdot X\tran \Bigg(\Sigma_D \odot
+  \big(\bfY - X \whweight\big) \big(\bfY - X
+  \whweight\big)\tran \Bigg) X.
+\end{align*} The kernel of the constant symmetric matrix multiplying
+$\alpha_\ell^2$ contains $\ker(X)$, so the triangle inequality and repeated
+application of Lemma \ref{lem::lin_op_bound} result in \begin{equation}
+  \label{eq::res_bound}
+  \begin{split}
+    \norm*{\sum_{\ell = 1}^k \Slin_{\alpha_k} \circ \cdots \circ
+    \Slin_{\alpha_{\ell + 1}} \big(\Sint_{\alpha_\ell}\big)} &\leq \sum_{\ell =
+    1}^k \left(\prod_{m = \ell + 1}^k \big(1 - \alpha_m \cdot
+    \sigminp(\whbbX)\big)\right) \cdot \norm[\big]{\Sint_{\alpha_\ell}}\\
+    &\leq \norm{X}^2 \cdot \norm{\Sigma_D} \cdot \norm[\big]{\bfY - X
+    \whweight}_2^2 \cdot \sum_{\ell = 1}^k \alpha_\ell^2 \cdot \left(\prod_{m =
+    \ell + 1}^k \big(1 - \alpha_m \cdot \sigminp(\whbbX)\big)\right)
+  \end{split}
+\end{equation} where the second inequality follows from sub-multiplicativity of
+the norm and Lemma \ref{lem::misc_b} and \ref{lem::misc_c}. Defining $c_\ell =
+\alpha_\ell \cdot \sigminp(\whbbX)$, the latter expression is proportional to
+$\sum_{\ell = 1}^k c_\ell^2 \cdot \prod_{m = \ell + 1}^k (1 - c_m)$. By
+construction, $c_\ell \in (0, 1)$ for every $\ell$, so Lemma \ref{lem::misc_a}
+implies \begin{align*}
+  \sum_{\ell = 1}^k c_\ell^2 \cdot \prod_{m = \ell + 1}^k (1 - c_m) &\leq
+  \sum_{\ell = 1}^k c_{\ell}^2 \cdot \exp\left(- \sum_{\ell = m + 1}^k
+  c_\ell\right)\\
+  &\leq \sum_{\ell = \floor{k / 2}}^k c_\ell^2 + \exp\left(- \sum_{\ell =
+  \ceil{k / 2}}^{k} c_\ell\right).
+\end{align*} As $k \to \infty$, the tail series $\sum_{\ell = \floor{k / 2}}^{k}
+c_\ell^2$ must vanish due to $c_{\ell}$ being square summable. The exponential
+term must then also go to $0$ since the $c_\ell$ are non-summable. Suppose now
+that $\alpha_\ell = \alpha / \ell$ for some constant $\alpha > 0$, then
+$\sum_{\ell = 1}^k \alpha_\ell > \alpha \cdot \log(k)$ for every $k \geq 1$.
+Consequently, Lemma \ref{lem::misc_a} implies \begin{align*}
+  \sum_{\ell = 1}^k \alpha_\ell^2 \cdot \left(\prod_{m = \ell + 1}^k \big(1 -
+  \alpha_m \cdot \sigminp(\whbbX)\big)\right) &\leq \sum_{\ell = 1}^k
+  \alpha_\ell^2 \cdot \exp \left(- \sigminp(\whbbX) \cdot \sum_{m = \ell + 1}^k
+  \alpha_m\right)\\
+  &\leq \exp\Big(- \alpha \sigminp(\whbbX) \cdot \log(k)\Big)
+  \cdot \sum_{\ell = 1}^{k} \alpha_\ell^2 \cdot \exp \left(\sigminp(\whbbX)
+  \cdot \sum_{m = 1}^{\ell} \alpha_m\right)\\
+  &\leq \exp\Big(\alpha \sigminp(\whbbX) \cdot \big(\gamma - \log(k)\big)\Big)
+  \cdot \sum_{\ell = 1}^k \alpha_\ell^2 \cdot \exp\Big(\alpha \sigminp(\whbbX)
+  \cdot \log(\ell)\Big)\\
+  &= e^{\alpha \sigminp(\whbbX) \gamma} \cdot \dfrac{1}{k^{\alpha
+  \sigminp(\whbbX)}} \cdot \sum_{\ell = 1}^k \dfrac{\alpha}{\ell^{2 - \alpha
+  \sigminp(\whbbX)}}
+\end{align*} where $\gamma = 0.577 \ldots$ denotes the Euler-Mascheroni
+constant. Recall that $\sum_{\ell = 1}^{k} 1 / \ell^{1 + a}$ converges to a
+finite constant for all $a > 0$, namely $\zeta(1 + a)$. Together with
+\eqref{eq::res_bound}, we now arrive at the estimate \begin{align*}
+  \norm*{\sum_{\ell = 1}^k \Slin_{\alpha_k} \circ \cdots \circ
+  \Slin_{\alpha_{\ell + 1}} \big(\Sint_{\alpha_\ell}\big)} \leq \norm{X}^2 \cdot
+  \norm{\Sigma_D} \cdot \norm[\big]{\bfY - X \whweight}_2^2 \cdot e^{\alpha
+  \sigminp(\whbbX) \gamma} \cdot \alpha \zeta\big(2 - \alpha \cdot
+  \sigminp(\whbbX)\big) \cdot \dfrac{1}{k^{\alpha \sigminp(\whbbX)}}
+\end{align*} Combining the latter with Lemma \ref{lem::var_ass} and applying
+Lemma \ref{lem::misc_a} now leads to the desired convergence rate \begin{align*}
+  \norm[\big]{A_{k + 1}} \leq \norm[\Bigg]{A_{k + 1} - \sum_{\ell = 1}^k
+  \Slin_{\alpha_k} \circ \cdots \circ \Slin_{\alpha_{\ell + 1}}
+  \big(\Sint_{\alpha_\ell}\big)} + \norm*{\sum_{\ell = 1}^k \Slin_{\alpha_k}}
+  \leq C_1 \cdot \dfrac{1}{k^{\alpha \sigminp(\whbbX)}}
+\end{align*} with constant \begin{align*}
+  C_1 = C_0 \cdot \left(1 + \alpha \cdot \dfrac{\pi^2}{6}\right)+ \norm{X}^2
+  \cdot \norm{\Sigma_D} \cdot \norm[\big]{\bfY - X \whweight}_2^2 \cdot
+  e^{\alpha \sigminp(\whbbX) \gamma} \cdot \alpha \zeta\big(2 - \alpha \cdot
+  \sigminp(\whbbX)\big).
+\end{align*} This concludes the proof of Theorem \ref{thm::var_conv_iso_a}.
+
+We now turn our attention to the setting of constant step-sizes $\alpha_k =
+\alpha$, as in Theorem \ref{thm::var_conv_iso_b}. In this case, the affine map
+$S_{\alpha}$ in Lemma \ref{lem::var_op_iso} is the same for each iteration and
+so Lemma \ref{lem::var_ass} implies \begin{align*}
+  \norm[\Bigg]{A_{k + 1} - \sum_{\ell = 1}^k \big(\Slin_\alpha\big)^{\ell - 1}
+  \big(\Sint_\alpha\big)} \leq C_0 \cdot \big(1 + k \alpha^2\big) \cdot \big(1
+  - \alpha_\ell \cdot \sigminp(\whbbX)\big)^{k - 1}.
+\end{align*} Recall from Lemma \ref{lem::var_op_iso} that $\Sint_\alpha$ is a
+symmetric matrix, the kernel of which contains $\ker(X)$. The of matrices with
+these properties is stable with respect to the usual vector space operations on
+matrices and hence forms a complete metric space under the spectral norm. As
+shown in Lemma \ref{lem::lin_op_bound}, the effective operator norm of
+$\Slin_\alpha$ on this space is given by $1 - \alpha \cdot \sigminp(\whbbX) <
+1$. Consequently, the restriction of $\id - \Slin_\alpha$ to this sub-space may
+be inverted via its Neumann series (Proposition 5.3.4 in \cite{helemskii_2006},
+which yields \begin{align*}
+  \norm*{\sum_{\ell = 1}^k \big(\Slin_\alpha\big)^{\ell - 1}
+  \big(\Sint_\alpha\big) - \big(\id - \Slin_\alpha\big)\inv_{\ker(X)}
+  \big(\Sint_\alpha\big)} \leq \big(1 - \alpha \cdot \sigminp(\whbbX)\big)^k
+  \norm[\Big]{\big(\id - \Slin_\alpha\big)\inv_{\ker(X)} \cdot
+  \big(\Sint_\alpha\big)}
+\end{align*} Combining these computations now leads to the desired convergence
+rate \begin{align*}
+  &\norm[\Bigg]{A_{k + 1} - \big(\id - \Slin_\alpha\big)\inv_{\ker(X)}
+  \big(\Sint_\alpha\big)}\\
+  \leq\ &\norm[\Bigg]{A_{k + 1} - \sum_{\ell = 1}^k \big(\Slin_\alpha\big)^{\ell
+  - 1} \big(\Sint_\alpha\big)} + \norm*{\sum_{\ell = 1}^k
+  \big(\Slin_\alpha\big)^{\ell - 1} \big(\Sint_\alpha\big) - \big(\id -
+  \Slin_\alpha\big)\inv_{\ker(X)} \big(\Sint_\alpha\big)}\\
+  \leq\ &C_2 \cdot \big(2 + k \alpha^2\big) \cdot \big(1 - \alpha \cdot
+  \sigminp(\whbbX)\big)^{k - 1}
+\end{align*} with constant \begin{align*}
+  C_2 = C_0 + \norm[\Big]{\big(\id - \Slin_\alpha\big)\inv_{\ker(X)} \cdot
+  \big(\Sint_\alpha\big)}.
+\end{align*} Applying Lemma \ref{lem::misc_a} completes the proof of Theorem
+\ref{thm::var_conv_iso_b}.
+
+\subsection{Proof of Theorem \ref{thm::stat_dist}}
+
+The proof of the first statement follows along similar lines as the proof of
+Lemma 1 in \cite{li_schmidt-hieber_et_al_2024}. Due to Assumption
+\ref{ass::gmc_b}, both $\norm{I - \alpha \cdot X\tran D^2 X}^q$ and
+$\norm{X\tran D^2 (\bfY - X \whweight)}_2^q$ admit deterministic upper-bounds
+that are polynomial in $\norm{\bbX}$, $\norm{\bfY}_2$, and $\sigma^2$, with
+degree depending on $q$. Consequently, $\norm{\whweight_k}_2^q$ has finite
+expectation for all $q \geq 1$.
+
+Fix $k \geq 1$, then the specific form of the gradient descent recursion
+\eqref{eq::gd_var} and the coupling between $\bfu_{k + 1}$ and $\bfv_{k + 1}$
+imply \begin{align}
+  &\norm[\big]{\whu_{k + 1} - \whv_{k + 1}}_2^q \nonumber\\
+  =\ &\norm[\big]{\whu_{k + 1} - \whweight + \whweight - \whv_{k + 1}}_2^q
+  \nonumber\\
+  =\ &\norm[\Bigg]{\big(I - \alpha \cdot X\tran D_k^2 X\big) \big(\whu_k -
+  \whweight\big) + \alpha \cdot X\tran D_k^2 \big(\bfY - X \whweight\big) -
+  \Bigg(\big(I - \alpha \cdot X\tran D_k^2 X\big) \big(\whv_k - \whweight\big) +
+  \alpha \cdot X\tran D_k^2 \big(\bfY - X \whweight\big)\Bigg)}_2^q \nonumber\\
+  =\ &\norm[\Big]{\big(I - \alpha \cdot X\tran D_k^2 X\big) \big(\whu_k -
+  \whv_k\big)}_2^q. \label{eq::rec_diff_gmc}
+\end{align} Due to Assumption \ref{ass::conv_a}, the initial difference $\whu_1
+- \whv_1$ is almost surely orthogonal to $\ker(X)$. For any $\bfw \in \ker(X)$
+and $k \geq 1$, \begin{align*}
+  \bfw\tran \big(I - \alpha \cdot X\tran D_k^2 X\big) \big(\whu_k - \whv_k\big)
+  = \bfw\tran \big(\whu_k - \whv_k\big) = \bfzero
+\end{align*} so induction on $k$ proves that $\big(\whu_k - \whv_k\big) \perp
+\ker(X)$ almost surely for all $k$. Taking the expectation with respect to $D$
+in \eqref{eq::rec_diff_gmc}, we may divide and multiply the latter by
+$\norm{\whu_k - \whv_k}^q_2$ to rewrite \begin{align*}
+  &\E_D\Bigg[\norm[\Big]{\big(I - \alpha \cdot X\tran D_k^2 X\big) \big(\whu_k
+  - \whv_k\big)}_2^q\Bigg]\\
+  =\ &\E_D\Bigg[\tfrac{1}{\norm{\whu_k - \whv_k}^q_2} \cdot \norm[\Big]{\big(I -
+  \alpha \cdot X\tran D_k^2 X\big) \big(\whu_k - \whv_k\big)}_2^q \cdot
+  \norm[\big]{\whu_k - \whv_k}^q_2\Bigg]\\
+  =\ &\E_D\left[\E_D\Bigg[\tfrac{1}{\norm{\whu_k - \whv_k}^q_2} \cdot
+  \norm[\Big]{\big(I - \alpha \cdot X\tran D_k^2 X\big) \big(\whu_k -
+  \whv_k\big)}_2^q \Bigmid \whu_k, \whv_k \Bigg] \cdot
+  \norm[\big]{\whu_k - \whv_k}^q_2 \right].
+\end{align*} Write $\widehat{\bfz}_k$ for the unit vector in the direction of
+$\whu_k - \whv_k$, then the conditional expectation of $\norm{(I - \alpha \cdot
+X\tran D_k^2 X) \widehat{\bfz}_k}_2^q$ is a deterministic function of
+$\widehat{\bfz}_k$. To maximize it, we may take the supremum over the orthogonal
+complement of $\ker(X)$. Since $D_k$ is generated independent of $\whu_k$ and
+$\whv_k$, this results in \begin{align*}
+  &\E_D\left[\E_D\Bigg[\norm[\Big]{\big(I - \alpha \cdot X\tran D_k^2 X\big)
+  \widehat{\bfz}_k}_2^q \Bigmid \whu_k, \whv_k \Bigg] \cdot \norm[\big]{\whu_k -
+  \whv_k}^q_2 \right]\\
+  \leq\ &\E_D\left[\sup_{\substack{\norm{\bfw} = 1\\ \bfw \perp \ker(X)}}
+  \E_D\Bigg[\norm[\Big]{\big(I - \alpha \cdot X\tran D_k^2 X\big) \bfw}_2^q
+  \Bigmid \whu_k, \whv_k \Bigg] \cdot \norm[\big]{\whu_k - \whv_k}^q_2 \right]\\
+  =\ &\sup_{\substack{\norm{\bfw} = 1\\ \bfw \perp \ker(X)}}
+  \E_D\Bigg[\norm[\Big]{\big(I - \alpha \cdot X\tran D_k^2 X\big)
+  \bfw}_2^q\Bigg] \cdot \E_D\Big[\norm[\big]{\whu_k - \whv_k}^q_2\Big].
+\end{align*}
+
+To prove the first claim, it now suffices to show that the supremum over $\bfw$
+in the previous display always leads to a multiplier contained in $(0, 1)$. By
+Assumption \ref{ass::gmc_c}, the singular values of $X\tran D_k^2 X$ lie in $[0,
+1)$, meaning $\norm[\big]{I - \alpha \cdot X\tran D_k^2 X} \leq 1$. We first
+treat the case $q \geq 2$, which allows for the upper bound \begin{align*}
+  \E_D\Bigg[\norm[\Big]{\big(I - \alpha \cdot X\tran D_k^2 X\big)
+  \bfw}_2^q\Bigg] &= \E_D\Bigg[\norm[\Big]{\big(I - \alpha \cdot X\tran D_k^2
+  X\big) \bfw}_2^2 \cdot \norm[\Big]{\big(I - \alpha \cdot X\tran D_k^2 X\big)
+  \bfw}_2^{q - 2}\Bigg]\\
+  &\leq \E_D\Bigg[\norm[\Big]{\big(I - \alpha \cdot X\tran D_k^2 X\big)
+  \bfw}_2^2 \cdot \norm[\big]{I - \alpha \cdot X\tran D_k^2 X}^{q - 2}\Bigg]\\
+  &\leq \E_D\Bigg[\norm[\Big]{\big(I - \alpha \cdot X\tran D_k^2 X\big)
+  \bfw}_2^2\Bigg].
+\end{align*}
+
+\begin{align*}
+  \sup_{\substack{\norm{\bfw} = 1\\ \bfw \perp \ker(X)}}
+  \E_D\Bigg[\norm[\Big]{\big(I - \alpha \cdot X\tran D_k^2 X\big)
+  \bfw}_2^2\Bigg] &= \sup_{\substack{\norm{\bfw} = 1\\ \bfw \perp \ker(X)}}
+  \bfw\tran \E_D\bigg[\big(I - \alpha \cdot X\tran D_k^2 X\big)^2\bigg] \bfw
+\end{align*}
+
+\begin{align*}
+  \E_D\bigg[\big(I - \alpha \cdot X\tran D_k^2 X\big)^2\bigg] = I - 2 \alpha
+  \cdot \E_D\big[X\tran D_k^2 X\big] + \alpha^2 \cdot \E_D\Big[X\tran D_k^2 X
+  X\tran D_k^2 X\Big]
+\end{align*}
+
+\begin{align*}
+  - 2 \alpha \cdot \E_D\big[X\tran D_k^2 X\big] + \alpha^2 \cdot \E_D\Big[X\tran
+  D_k^2 X X\tran D_k^2 X\Big] \leq - \alpha \cdot \big(2 - \alpha \sigma^2 \cdot
+  \norm{\bbX}\big) \cdot \whbbX
+\end{align*}
+
+\begin{align*}
+   \sup_{\substack{\norm{\bfw} = 1\\ \bfw \perp \ker(X)}} \bfw\tran
+   \E_D\bigg[\big(I - \alpha \cdot X\tran D_k^2 X\big)^2\bigg] \bfw &\leq
+   \sup_{\substack{\norm{\bfw} = 1\\ \bfw \perp \ker(X)}} \bfw\tran \bigg(I -
+   \alpha \cdot \big(2 - \alpha \sigma^2 \cdot \norm{\bbX}\big) \cdot
+   \whbbX\bigg) \bfw\\
+   &= 1 - \alpha \cdot \big(2 - \alpha \sigma^2 \cdot \norm{\bbX}\big) \cdot
+   \sigminp(\whbbX)
+\end{align*}
+
+\section{Auxiliary Results}
+
+In this appendix we gather the main technical results used in the main text. Due
+to the nature of the linear regression loss, these tools are predominantly based
+on classical linear algebra.
+
+\subsection{Singular Values and Pseudo-Inversion}
+\label{sec::svalue_pinv}
+
+Let $A$ be an $(n \times d)$-matrix, then any decomposition $A = U \Sigma
+V\tran$ is a singular value decomposition if the following hold: \begin{enumerate}
+  \item The matrix $U$ is orthogonal and of size $n \times n$.
+  \item The matrix $V$ is orthogonal and of size $d \times d$.
+  \item The matrix $\Sigma$ has non-negative diagonal entries, zeroes everywhere
+    else, and is of size $n \times d$.
+\end{enumerate} The diagonal entries of $\Sigma$ are unique and referred to as
+the singular values of $A$. Note that $U = V$ for a symmetric square matrix.
+
+We may use the singular value decomposition to invert $A$ on the largest
+possible sub-space. The pseudo-inverse $A\pinv$ of $A$ is given by $V
+\Sigma\pinv U\tran$, where $\Sigma\pinv$ denotes the $(d \times m)$-matrix with
+zeroes off-diagonal and \begin{align*}
+  \Sigma\pinv_{ii} = \begin{cases}
+    \Sigma_{ii}\inv &\mbox{if } \Sigma_{ii} > 0, \\
+    0 &\mbox{if } \Sigma_{ii} = 0.
+  \end{cases}
+\end{align*} By construction, $A\pinv A = V \Sigma\pinv \Sigma V\tran$ and $A
+A\pinv = U \Sigma \Sigma\pinv U\tran$. Both $\Sigma\pinv \Sigma$ and $\Sigma
+\Sigma\pinv$ are diagonal matrices, featuring binary diagonal entries. The
+singular values of a non-singular matrix are positive, in which case
+$\Sigma\pinv \Sigma = \Sigma \Sigma\pinv = I$ and so $A\pinv = A\inv$.
+
+For more details, we refer to Chapter 17 of \cite{roman_2008}. We collect the
+relevant properties of the pseudo-inverse in the following lemma.
+
+\begin{lemma}
+  \begin{enumerate}
+    \item For any matrix $A$, the identity $A\tran A A\pinv = A\tran$ holds.
+      \label{lem::pinv_a}
+    \item For any vector $\bfv$ of compatible dimension, $A\pinv \bfv \perp
+      \ker(A)$. \label{lem::pinv_b}
+    \item The minimum norm minimizer of $\bfv \mapsto \norm{A \bfv - \bfw}$ is
+      given by $A\pinv \bfw$. \label{lem::pinv_c}
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  \begin{enumerate}
+    \item Let $A = U \Sigma V\tran$ be a singular value decomposition, then
+      $A\tran A A\pinv = V \Sigma\tran \Sigma \Sigma\pinv U\tran$. By
+      construction, $\Sigma\tran \Sigma \Sigma\pinv = \Sigma\tran$ and the proof
+      is complete.
+    \item Note that $A\tran A = V \Sigma\tran \Sigma V\tran$, so $\bfw \in
+      \ker(A) \subset \ker(A\tran A)$ implies $V\tran \bfw \in \ker(\Sigma\tran
+      \Sigma)$. Since $\Sigma\tran \Sigma$ is diagonal, it follows that $(V\tran
+      \bfw)_i$ can only be non-zero when $(\Sigma\tran \Sigma)_{ii} = 0$. By
+      definition of $\Sigma\pinv$, this implies $\bfw\tran A\pinv \bfv =
+      \bfw\tran V \Sigma\pinv U\tran \bfv = 0$.
+    \item See Theorem 17.3 of \cite{roman_2008}.
+  \end{enumerate}
+\end{proof}
+
+Lastly, we prove a result to estimate the convergence rate of fixed-point
+iterations in terms of the non-zero singular values of a given matrix.
+
+\begin{lemma}
+  \label{lem::fixp_conv}
+  Fix $A \in \R^{n \times d}$ and suppose $\norm{A\tran A} < 1$. If $\bfw \perp
+  \ker(A)$, then also $(I - A\tran A) \bfw \perp \ker(A)$ and \begin{align*}
+    \norm[\big]{\big(I - A\tran A\big) \bfw}_2 \leq \big(1 - \sigminp(A\tran
+    A)\big) \cdot \norm{\bfw}_2
+  \end{align*}
+\end{lemma}
+
+\begin{proof}
+  Write $r = \rank(A)$ and let $A = U \Sigma V\tran$ be a singular value
+  decomposition. Permuting the columns of $U$ and $V$, we may order the singular
+  values such that $\Sigma_{ii} > 0$ if, and only if, $i \leq r$. By definition,
+  the column vectors $\bfv_1, \ldots, \bfv_d$ of $V$ are orthogonal and in turn
+  \begin{align*}
+    I - A\tran A &= V \big(I - \Sigma\tran \Sigma\big) V\tran = \sum_{i = 1}^d
+    \big(I - \Sigma\tran \Sigma\big)_{ii} \cdot \bfv_i \bfv_i\tran.
+  \end{align*} The vector $\bfw$ may be expressed as a unique linear combination
+  $\bfw = \sum_{i = 1}^d c_i \cdot \bfv_i$. Theorem 17.3 of \cite{roman_2008}
+  shows that $\bfv_{r + 1}, \ldots, \bfv_d$ form an ortho-normal basis for
+  $\ker(A)$, so $\bfw \perp \ker(A)$ implies $c_i = 0$ for all $i > r$. In
+  turn, \begin{align*}
+    \big(I - A\tran A\big) \bfw = \left(\sum_{i = 1}^{d} \big(I - \Sigma\tran
+    \Sigma\big)_{ii} \bfv_i \bfv_i\tran\right) \left(\sum_{j = 1}^d c_j \cdot
+    \bfv_j\right) = \sum_{i = 1}^r \big(I - \Sigma\tran \Sigma\big)_{ii} c_i
+    \cdot \bfv_i,
+  \end{align*} which proves that $(I - A\tran A) \bfw \perp \ker(A)$.
+
+  The assumption $\norm{A\tran A} < 1$ entails $0 < (\Sigma\tran \Sigma)_{ii} <
+  1$ for every $i \leq r$, so the first $r$ diagonal entries of $I - \Sigma\tran
+  \Sigma$ must all lie in $(0, 1)$. Accordingly, ortho-normality of the $\bfv_i$
+  implies \begin{align*}
+    \norm[\Big]{\big(I - A\tran A\big)\bfw}_2 &= \sqrt{\left(\sum_{i = 1}^r
+    \big(I - \Sigma\tran \Sigma\big)_{ii} c_i \cdot \bfv_i\right)\tran
+    \left(\sum_{j = 1}^r \big(I - \Sigma\tran \Sigma\big)_{jj} c_j \cdot
+    \bfv_j\right)}\\
+    &= \sqrt{\sum_{i = 1}^r \big(I - \Sigma\tran \Sigma\big)_{ii}^2 \cdot c_i^2}
+    \leq \left(\max_{i = 1, \ldots, r} \big(1 - \Sigma\tran
+    \Sigma\big)_{ii}\right) \cdot \norm{\bfw}_2.
+  \end{align*} To complete the proof, it suffices to note that $(1 - \Sigma\tran
+  \Sigma)_{ii}$ attains its maximum over $i = 1, \ldots, r$ at the smallest
+  non-zero diagonal entry of $\Sigma\tran \Sigma$, which coincides with
+  $\sigminp(A\tran A)$.
+\end{proof}
+
+\subsection{Miscellaneous Facts}
+
+We collect various useful results in the following lemma.
+
+\begin{lemma}
+  \begin{enumerate}
+    \item Let $c_i$, $i \geq 1$ be a sequence in $(0, 1)$, then
+      \begin{align*}
+        \prod_{i = 1}^k \big(1 - c_i\big) \leq \exp\left(- \sum_{i = 1}^k c_i\right).
+      \end{align*} for every $k \geq 1$. In turn, $\limsup_{k \to \infty}
+      \prod_{i = 1}^k (1 - c_i) = 0$ whenever $\sum_{i = 1}^\infty c_i =
+      \infty$. \label{lem::misc_a}
+    \item For any vectors $\bfu$ and $\bfv$, \begin{align*}
+        \norm{\bfu \bfv\tran} = \norm{\bfu}_2 \norm{\bfv}_2.
+      \end{align*} \label{lem::misc_b}
+    \item Denote by $A \odot B$ the element-wise product of matrices, then
+      \begin{align*}
+        \norm{A \odot B} \leq \norm{A} \cdot \norm{B}.
+      \end{align*} \label{lem::misc_c}
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  \begin{enumerate}
+    \item Note that $0 < 1 - c_i < 1$ implies $\log(1 - c_i) \leq - c_i$.
+      Consequently, \begin{align*}
+        \prod_{i = 1}^k \big(1 - c_i\big) &= \exp \left(\sum_{i = 1}^k
+        \log\big(1 - c_i\big)\right)\\
+        &\leq \exp \left(- \sum_{i = 1}^k c_i\right).
+      \end{align*}
+    \item Given any unit vector $\bfw$ of the same dimension as $\bfv$, note
+      that $\norm{\bfu \bfv\tran \bfw}_2 = \abs{\bfv\tran \bfw} \cdot
+      \norm{\bfu}_2$. The inner product $\bfv\tran \bfw$ is maximized over the
+      unit sphere by taking $\bfw = \bfv / \norm{\bfv}_2$, which proves the
+      result.
+    \item See Theorem 5.5.1 in \cite{horn_johnson_1991}.
+  \end{enumerate}
+\end{proof}
+
+\end{document}
