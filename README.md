@@ -9,12 +9,12 @@ This repository implements and empirically validates the theoretical results for
 We consider the weighted least squares problem:
 
 $$
-\min_{w \in \mathbb{R}^d} \frac{1}{2} \|D(Xw - y)\|^2
+\min_{w \in \mathbb{R}^d} \frac{1}{2} \|D(Xw - Y)\|^2
 $$
 
 where:
 - $X \in \mathbb{R}^{n \times d}$ is the data matrix
-- $y \in \mathbb{R}^n$ is the target vector
+- $Y \in \mathbb{R}^n$ is the target vector
 - $D \in \mathbb{R}^{n \times n}$ is a random diagonal matrix with i.i.d. entries
 
 ### Algorithm
@@ -22,7 +22,7 @@ where:
 The randomly weighted gradient descent algorithm updates the weights according to:
 
 $$
-w_{k+1} = w_k - \alpha_k X^T D_k^2 (Xw_k - y)
+w_{k+1} = (I-\alpha_k \cdot X^\top D_k^2X) \hat{w_k} + \alpha_k \cdot X^T D_k^2 Y
 $$
 
 where $\alpha_k$ is the step size at iteration k and $D_k$ is independently sampled at each iteration.
