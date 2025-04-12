@@ -57,7 +57,7 @@ $$
 ## Implementation Details
 
 ### Weight Distributions
-The code supports three types of random weight distributions:
+The code supports three types of random weight distributions (for now):
 1. Uniform: $D_{ii} \sim U(0,1)$
 2. Bernoulli: $D_{ii} \sim \text{Bernoulli}(p)$
 3. Binary: Randomly select half of diagonal entries to be 1, others 0
