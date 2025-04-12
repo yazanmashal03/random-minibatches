@@ -40,10 +40,10 @@ $$
 The second moment convergence is characterized by the operator $S_\alpha$ defined as:
 
 $$
-S_\alpha(A) = (I - \alpha \hat{X})A(I - \alpha \hat{X}) + \alpha^2 X^T(\Sigma_D \circ (XAX^T + (Y-X\hat{w})(Y-X\hat{w})^T))X
+S_\alpha(A) = (I - \alpha \hat{X})A(I - \alpha \hat{X}) + \alpha^2 X^t(\Sigma_D \circ (XAX^t + (Y-X\hat{w})(Y-X\hat{w})^t))X
 $$
 
-where $\hat{X} = M_2^{1/2}X$ and $\Sigma_D$ is the covariance matrix of the diagonal entries of $D$.
+where $\hat{X} = X^tM_2X$ and $\Sigma_D$ is the covariance matrix of the diagonal entries of $D$.
 
 The difference between consecutive second moments satisfies:
 
