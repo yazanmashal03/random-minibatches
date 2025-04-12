@@ -50,7 +50,7 @@ The difference between consecutive second moments satisfies:
 $$
 \begin{align*}
 \|\mathbb{E}[(w_{k+1} - \hat{w})(w_{k+1} - \hat{w})^T] - S_{\alpha_k}(\mathbb{E}[(w_k - \hat{w})(w_k - \hat{w})^T])\| \\
-\leq 2\alpha_k^2 \|X\|^3 \|\Sigma_D\| \exp(-\sigma_{\min}^+(X)\sum_{\ell=1}^{k-1} \alpha_\ell) \|w_1 - \hat{w}\| \|Y - X\hat{w}\|
+\leq 2\alpha_k^2 \|X\|^3 \|\Sigma_D\| \exp(-\sigma_{\min}^+(X^tX)\sum_{\ell=1}^{k-1} \alpha_\ell) \|w_1 - \hat{w}\| \|Y - X\hat{w}\|
 \end{align*}
 $$
 
