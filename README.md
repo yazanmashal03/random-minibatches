@@ -22,7 +22,7 @@ where:
 The randomly weighted gradient descent algorithm updates the weights according to:
 
 $$
-w_{k+1} = (I-\alpha_k \cdot X^\top D_k^2X) \hat{w_k} + \alpha_k \cdot X^T D_k^2 Y
+w_{k+1} = (I-\alpha_k \cdot X^t D_k^2X) \hat{w_k} + \alpha_k \cdot X^T D_k^2 Y
 $$
 
 where $\alpha_k$ is the step size at iteration k and $D_k$ is independently sampled at each iteration.
@@ -33,7 +33,7 @@ where $\alpha_k$ is the step size at iteration k and $D_k$ is independently samp
 The expected iterates converge to the weighted least squares solution $\hat{w}$ at a linear rate:
 
 $$
-\|\mathbb{E}[w_k - \hat{w}]\| \leq \exp(-\sigma_{\min}^+(X^TX)\sum_{\ell=1}^k \alpha_\ell) \|w_1 - \hat{w}\|
+\|\mathbb{E}[w_k - \hat{w}]\| \leq \exp(-\sigma_{\min}^+(\mathcal{X})\sum_{\ell=1}^k \alpha_\ell) \|w_1 - \hat{w}\|
 $$
 
 #### Second Moment Convergence (Lemma 3.3)
