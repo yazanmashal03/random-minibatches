@@ -33,7 +33,7 @@ where $\alpha_k$ is the step size at iteration k and $D_k$ is independently samp
 The expected iterates converge to the weighted least squares solution $\hat{w}$ at a linear rate:
 
 $$
-\|\mathbb{E}[w_k - \hat{w}]\| \leq \exp(-\sigma_{\min}^+(\mathscr{X})\sum_{\ell=1}^k \alpha_\ell) \|w_1 - \hat{w}\|
+\|\mathbb{E}[w_k - \hat{w}]\| \leq \exp(-\sigma_{\min}^+({X^tX})\sum_{\ell=1}^k \alpha_\ell) \|w_1 - \hat{w}\|
 $$
 
 #### Second Moment Convergence (Lemma 3.3)
