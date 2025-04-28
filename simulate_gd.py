@@ -231,7 +231,7 @@ def main():
     # Generate synthetic data
     np.random.seed(42)
     n_samples = 50
-    n_features = 60
+    n_features = 40
     
     # Generate random data matrix X
     X = np.random.randn(n_samples, n_features)
@@ -252,7 +252,7 @@ def main():
     for i, step_type in enumerate(step_types):
         first_moment, first_moment_bound, second_moment, second_moment_bound = simulate_weighted_gd(
             X, Y, n_iterations=1500, step_type=step_type,
-            initialization='orthogonal', weight_distribution='importance', p=0.2)
+            initialization='orthogonal', weight_distribution='bernoulli', p=0.2)
         
         # Plot first moment results
         plt.subplot(2, 1, i+1)
