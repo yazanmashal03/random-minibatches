@@ -7,7 +7,7 @@ def get_M2_sqrt(weight_distribution, p, n_samples, sensitivities=None):
     For importance sampling, M2 is diagonal with entries being the sensitivities.
     """
     if weight_distribution == 'uniform':
-        val = np.sqrt(1/3)
+        val = np.sqrt(1/n_samples)
         return val * np.eye(n_samples)
     elif weight_distribution == 'bernoulli':
         val = np.sqrt(p)
@@ -23,49 +23,52 @@ def get_M2_sqrt(weight_distribution, p, n_samples, sensitivities=None):
     else:
         raise ValueError(f"Unknown weight distribution: {weight_distribution}")
 
-def get_step_sizes(n_iterations, X, step_type='constant'):
+def get_step_sizes(n_iterations, X, M_2_sqrt, step_type='constant'):
     """
-    Generate step sizes satisfying Assumption 3.1(a)
+    Generate step sizes satisfying Assumption 3.1(a) and the assumption in Theorem 3.4
     
     Parameters:
     n_iterations: number of iterations
     X: data matrix
     step_type: 'constant' or 'diminishing'
     """
-    X_norm = np.linalg.norm(X, ord=2)  # spectral norm
+    X_norm = np.linalg.norm(X, ord=2)
+    singular_value = get_minimum_nonzero_singular_value(X)
+    norm_sigma_d = np.linalg.norm((M_2_sqrt @ M_2_sqrt) @ (M_2_sqrt @ M_2_sqrt).T, ord=2)
+    c_1 = 0.9 * singular_value / (singular_value**2 + X_norm**4 * norm_sigma_d)
     
     if step_type == 'constant':
-        alpha = 0.001
-        return alpha * np.ones(n_iterations)
+        alpha = 0.01
+        return c_1 * np.ones(n_iterations + 1)
     else:
-        c = 0.9 / X_norm
+        c = 0.7 / X_norm
         return c / np.arange(1, n_iterations + 1)
+
 
 def initialize_weights(X, initialization='orthogonal'):
     """
     Initialize weights satisfying Assumption 3.1(b):
     Initial guess should lie in the orthogonal complement of ker(X)
-    This uses the Gram-Schmidt process to orthogonalize the initial guess
+    This uses the Gram-Schmidt process to orthogonalize the initial guess.
+    Returns a column vector of shape (n_features, 1)
     """
     n_samples, n_features = X.shape
     
     if initialization == 'orthogonal':
         ker_X = null_space(X)
+        w = np.random.randn(n_features, 1)
         
         if ker_X.size > 0:
-            w = np.random.randn(n_features)
             for v in ker_X.T:
-                # Project w onto the orthogonal complement of ker(X).
-                w = w - (w @ v) * v
-            w = w / np.linalg.norm(w)
-        else:
-            w = np.random.randn(n_features)
-            w = w / np.linalg.norm(w)
+                v = v.reshape(-1, 1)  # Ensure column vector
+                w = w - v @ (v.T @ w)
+        w = w / np.linalg.norm(w)
+
     else:
         if initialization == 'zero':
-            w = np.zeros(n_features)
+            w = np.zeros((n_features, 1))
         else:
-            w = np.random.randn(n_features) * 0.01
+            w = np.random.randn(n_features, 1) * 0.01
             
     return w
 
@@ -106,22 +109,25 @@ def get_D_matrix(n_samples, weight_distribution, p=None, sensitivities=None):
     """
     Generate diagonal matrix D based on the specified distribution
     """
-    if weight_distribution == 'uniform':
-        D_ii = np.random.uniform(0, 1, size=n_samples)
-    elif weight_distribution == 'bernoulli':
-        D_ii = np.random.binomial(1, p, size=n_samples)
-    elif weight_distribution == 'binary':
-        indices = np.random.choice(n_samples, size=n_samples//2, replace=False)
-        D_ii = np.zeros(n_samples)
-        D_ii[indices] = 1
-    elif weight_distribution == 'importance':
-        if sensitivities is None:
-            raise ValueError("Sensitivities must be provided for importance sampling")
-        D_ii = np.random.binomial(1, p=sensitivities, size=n_samples)
-    else:
-        raise ValueError(f"Unknown weight distribution: {weight_distribution}")
+    D = np.zeros((n_samples, n_samples))
     
-    return np.diag(D_ii)
+    for i in range(n_samples):
+        if weight_distribution == 'uniform':
+            D[i, i] = np.random.binomial(1, 1/n_samples)
+            if D[i, i] == 1:
+                return D
+        elif weight_distribution == 'bernoulli':
+            D[i, i] = np.random.binomial(1, p)
+        elif weight_distribution == 'binary':
+            D[i, i] = np.random.choice([0, 1])
+        elif weight_distribution == 'importance':
+            if sensitivities is None:
+                raise ValueError("Sensitivities must be provided for importance sampling")
+            D[i, i] = np.random.binomial(1, p=sensitivities[i])
+        else:
+            raise ValueError(f"Unknown weight distribution: {weight_distribution}")
+    
+    return D
 
 def compute_sensitivities(X, Y, w):
     """
