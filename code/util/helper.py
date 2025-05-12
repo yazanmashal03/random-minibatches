@@ -38,8 +38,9 @@ def get_step_sizes(n_iterations, X, M_2_sqrt, step_type='constant'):
     c_1 = 0.9 * singular_value / (singular_value**2 + X_norm**4 * norm_sigma_d)
     
     if step_type == 'constant':
-        alpha = 0.01
-        return c_1 * np.ones(n_iterations + 1)
+        alpha = 0.001
+        return alpha * np.ones(n_iterations + 1)
+        # return c_1 / np.arange(1, n_iterations + 1)
     else:
         c = 0.7 / X_norm
         return c / np.arange(1, n_iterations + 1)
@@ -80,7 +81,7 @@ def get_minimum_nonzero_singular_value(X):
     nonzero_singular_values = singular_values[singular_values > 1e-10]
     return np.min(nonzero_singular_values) if len(nonzero_singular_values) > 0 else 0
 
-def compute_S_alpha(A, X, Y, w_hat, alpha, M2_sqrt):
+def compute_S_alpha(A, X, Y, w_hat, alpha, M2_sqrt, p):
     """
     Compute the S_alpha operator from Lemma 3.3:
     S_alpha(A) = (I - alpha X_hat)A(I - alpha X_hat) + alpha^2 X^T(Sigma_D ○ (XAX^T + (Y-Xw_hat)(Y-Xw_hat)^T))X
@@ -97,7 +98,7 @@ def compute_S_alpha(A, X, Y, w_hat, alpha, M2_sqrt):
     residual_outer = np.outer(residual, residual)
     
     # Element-wise multiplication with Sigma_D (represented by M2_sqrt^2)
-    Sigma_D = M2_sqrt @ M2_sqrt
+    Sigma_D = p * (1-p) * np.eye(n_samples)
     hadamard_term = Sigma_D * (XAXt + residual_outer)
     
     # Complete second term
@@ -119,7 +120,7 @@ def get_D_matrix(n_samples, weight_distribution, p=None, sensitivities=None):
         elif weight_distribution == 'bernoulli':
             D[i, i] = np.random.binomial(1, p)
         elif weight_distribution == 'binary':
-            D[i, i] = np.random.choice([0, 1])
+            D[i, i] =  np.random.binomial(1, 0.5)
         elif weight_distribution == 'importance':
             if sensitivities is None:
                 raise ValueError("Sensitivities must be provided for importance sampling")
