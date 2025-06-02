@@ -1,29 +1,29 @@
 import numpy as np
 from scipy.linalg import null_space, svdvals
 
-def get_M2_sqrt(self, sensitivities=None):
+def get_M2(self):
     """
-    Get the square root of M2 matrix (E[D^2]) based on the weight distribution.
+    Get the expected M2 matrix (E[D^2]) based on the weight distribution.
     For importance sampling, M2 is diagonal with entries being the sensitivities.
     """
     if self.weight_distribution == 'uniform':
-        val = np.sqrt(1/self.X.shape[0])
+        val = (1/self.X.shape[0])
         return val * np.eye(self.X.shape[0])
     elif self.weight_distribution == 'bernoulli':
-        val = np.sqrt(self.p)
-        return val * np.eye(self.X.shape[0])
+        return self.p * np.eye(self.X.shape[0])
     elif self.weight_distribution == 'binary':
-        val = np.sqrt(0.5)
+        val = (0.5)
         return val * np.eye(self.X.shape[0])
     elif self.weight_distribution == 'importance':
-        if sensitivities is None:
+        if self.sensitivities is None:
             raise ValueError("Sensitivities must be provided for importance sampling")
-        # For importance sampling, M2 = diag(sensitivities) since E[D^2] = P(D=1) = sensitivities
-        return np.sqrt(np.diag(sensitivities)) * np.eye(self.X.shape[0])
+        return np.diag(self.sensitivities)
+    elif self.weight_distribution == 'noiseless':
+        return np.eye(self.X.shape[0])
     else:
         raise ValueError(f"Unknown weight distribution: {self.weight_distribution}")
 
-def get_step_sizes(self, X, sensitivities):
+def get_step_sizes(self, X):
     """
     Generate step sizes satisfying Assumption 3.1(a) and the assumption in Theorem 3.4
     
@@ -34,9 +34,9 @@ def get_step_sizes(self, X, sensitivities):
     """
     X_norm = np.linalg.norm(X, ord=2)
     singular_value = get_minimum_nonzero_singular_value(X)
-    norm_sigma_d = np.linalg.norm(get_sigma_d(self, sensitivities), ord=2)
+    norm_sigma_d = np.linalg.norm(get_sigma_d(self), ord=2)
     c_1 = 0.7 * singular_value / (singular_value**2 + X_norm**4 * norm_sigma_d)
-    c = 0.7 / X_norm
+    c = 0.9 / X_norm
     
     if self.step_type == 'constant':
         return self.alpha, self.alpha * np.ones(self.n_iterations + 1)
@@ -58,11 +58,12 @@ def initialize_weights(self, X):
     
     if self.initialization == 'orthogonal':
         w = np.linalg.pinv(X) @ X @ self.w_true
-    else:
-        if self.initialization == 'zero':
+    elif self.initialization == 'zero':
             w = np.zeros((self.X.shape[1], 1))
-        else:
-            w = np.random.randn(self.X.shape[1], 1) * 0.01
+    elif self.initialization == 'ones':
+            w = np.ones((self.X.shape[1], 1))
+    else:
+        w = np.random.randn(self.X.shape[1], 1)
             
     return w
 
@@ -87,10 +88,10 @@ def compute_S_alpha(self, A, X, Y, w_hat, alpha, M2_sqrt, sensitivities):
     
     # Second term components
     residual = Y - X @ w_hat
-    XAXt = X @ A.reshape(n_features, n_features) @ X.T
-    residual_outer = np.outer(residual, residual)
+    XAXt = X @ A @ X.T
+    residual_outer = (Y - X @ w_hat) @ (Y - X @ w_hat).T
     
-    sigma_D = get_sigma_d(self, sensitivities)
+    sigma_D = get_sigma_d(self)
     hadamard_term = sigma_D * (XAXt + residual_outer)
     
     # Complete second term
@@ -98,7 +99,7 @@ def compute_S_alpha(self, A, X, Y, w_hat, alpha, M2_sqrt, sensitivities):
     
     return term1 + term2
 
-def get_D_matrix(self, sensitivities=None):
+def get_D_matrix(self):
     """
     Generate diagonal matrix D based on the specified distribution
     """
@@ -112,23 +113,27 @@ def get_D_matrix(self, sensitivities=None):
         elif self.weight_distribution == 'binary':
             D[i, i] =  np.random.binomial(1, 0.5)
         elif self.weight_distribution == 'importance':
-            if sensitivities is None:
+            if self.sensitivities is None:
                 raise ValueError("Sensitivities must be provided for importance sampling")
-            D[i, i] = np.random.binomial(1, p=sensitivities[i])
+            D[i, i] = self.sensitivities[i]
+        elif self.weight_distribution == 'noiseless':
+            D = np.eye(self.X.shape[0])
         else:
             raise ValueError(f"Unknown weight distribution: {self.weight_distribution}")
     
     return D
 
-def compute_sensitivities(self, w):
+def compute_sensitivities(self):
     """
-    Compute sensitivities for importance sampling based on current residuals
+    Compute sensitivities for importance sampling based on row norms of X.
+    Rows with larger L2 norms will have higher sensitivity values.
     """
-    residuals = self.Y - self.X @ w
-    sensitivities = residuals**2
+    # Compute L2 norm of each row in X
+    row_norms = np.linalg.norm(self.X, axis=1)
+    sensitivities = row_norms**2
     return sensitivities / (np.sum(sensitivities) + 1e-12)  # normalize to get probabilities
 
-def get_sigma_d(self, sensitivities):
+def get_sigma_d(self):
     """
     Compute the norm of sigma_d
     """
@@ -142,9 +147,24 @@ def get_sigma_d(self, sensitivities):
         p = 0.5
         return p * (1-p) * np.eye(self.X.shape[0])
     elif self.weight_distribution == 'importance':
-        sigma_sensitivity = np.zeros((sensitivities.shape[0]))
-        for i in range(sensitivities.shape[0]):
-            sigma_sensitivity[i] = sensitivities[i] * (1 - sensitivities[i])
-        return sigma_sensitivity
+        sigma_sensitivity = self.sensitivities * (1 - self.sensitivities)
+        return np.diag(sigma_sensitivity)
+    elif self.weight_distribution == 'noiseless':
+        return np.eye(self.X.shape[0])
     else:
         raise ValueError(f"Unknown weight distribution: {self.weight_distribution}")
+    
+def psd_sqrt(M):
+    # Ensure M is symmetric
+    M = (M + M.T) / 2  
+
+    # Eigen-decomposition
+    eigvals, eigvecs = np.linalg.eigh(M)
+
+    # Clip small negative eigenvalues due to numerical error
+    eigvals_clipped = np.clip(eigvals, 0, None)
+
+    # Compute the square root
+    sqrt_M = eigvecs @ np.diag(np.sqrt(eigvals_clipped)) @ eigvecs.T
+
+    return sqrt_M
