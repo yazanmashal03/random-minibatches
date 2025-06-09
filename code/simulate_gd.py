@@ -98,6 +98,9 @@ class WeightedGD:
         # defining the constants for the bounds
         C_0 = np.linalg.norm((w_init - w_hat) @ (w_init - w_hat).T, ord=2) + 2 * X_norm**3 * norm_sigma_d * np.linalg.norm(self.Y - self.X @ w_hat, ord=2) * np.linalg.norm(w_init - w_hat, ord=2)
         C_1 = C_0 * (1 + alphab * (((np.pi)**2)/6)) + X_norm**2 * norm_sigma_d * np.linalg.norm(self.Y - self.X @ w_hat, ord=2)**2 * (np.e)**(alphab * sigma_min * euler_gamma) * alphab * zeta(2 - (alphab * sigma_min))
+        #C_1 = 22
+        print("This is C_1: ", C_1)
+        print("This is alpha: ", alphab, "This is sigma_min: ", sigma_min)
         
         # Compute the product term for each k
         for k in range(self.n_iterations):
@@ -107,7 +110,7 @@ class WeightedGD:
                 product *= (1 - alphas[l] * sigma_min)
             first_moment_bound[k] = product * np.linalg.norm(w_init - w_hat, ord=2)
             second_moment_diff_bound[k] = 2 * alphas[k]**2 * X_norm**3 * norm_sigma_d * product * np.linalg.norm(w_init - w_hat, ord=2) * np.linalg.norm(self.Y - self.X @ w_hat, ord=2)
-            second_moment_bound[k] = C_1 * (1/((k)**(alphab * sigma_min)))
+            second_moment_bound[k] = C_1 * (1/((k+1)**(alphab * sigma_min)))
         
         return first_moment, first_moment_bound, second_moment_diff, second_moment_diff_bound, second_moment, second_moment_bound
 
@@ -123,7 +126,7 @@ def main():
     weight_distribution = 'uniform'
     initialization = 'orthogonal'
     alpha = 0.65 # this is the step size for the constant step size
-    step_types = ['diminishing_constant']
+    step_types = ['constant']
     
     # Generate random data matrix X
     # X = np.random.randn(n_samples, n_features)
@@ -141,7 +144,7 @@ def main():
 
     # Set diagonal elements to zero with probability p
     for i in range(min(n_samples, n_features)):
-        sigma[i,i] = np.random.binomial(1, p=0.6) * np.random.randn()
+        sigma[i,i] = np.random.binomial(1, p=0.6) * np.abs(np.random.randn())
 
     X = Q @ sigma @ S
     print("This is I - XX^+: ", np.linalg.norm(np.eye(n_samples) - X @ np.linalg.pinv(X), ord=2))
@@ -170,7 +173,7 @@ def main():
         plt.figure(figsize=(8, 5))
         plt.plot(first_moment, 'b-', linewidth=2, label=r'$\|\mathbb{E}_D[\hat w_{k+1} - \hat{w}]\|_2$')
         plt.plot(first_moment_bound, 'r--', linewidth=2, label='First moment bound (Lemma 3.2)')
-        #plt.plot(np.abs(first_moment - first_moment_bound), 'g--', linewidth=2, label='Covergence of the bound')
+        plt.plot(np.abs(first_moment - first_moment_bound), 'g--', linewidth=2, label='Covergence of the bound')
         plt.title(f'First Moment Convergence ({step_type} step size)')
         plt.xlabel('Iteration $k$')
         plt.ylabel('First moment')
@@ -182,11 +185,11 @@ def main():
         # --- Second plot: Second moment vs operator S(.) ---
         plt.figure(figsize=(8, 5))
         plt.plot(second_moment_diff, 'b-', linewidth=2, label=r'$\|\mathbb{E}_D[(\hat w_k - \hat{w})(Y - X \hat{w})^T] - S_{\alpha_k}(\mathbb{E}_D[(\hat w_k - \hat{w})(Y - X \hat{w})^T]) \|_2$')
-        plt.plot(second_moment_diff_bound, 'r--', linewidth=2, label='Second moment bound (Lemma 3.3)')
-        #plt.plot(np.abs(second_moment_diff - second_moment_diff_bound), 'g--', linewidth=2, label='Covergence of the bound')
+        plt.plot(second_moment_diff_bound, 'r--', linewidth=2, label='Second moment minus S(.) bound (Lemma 3.3)')
+        plt.plot(np.abs(second_moment_diff - second_moment_diff_bound), 'g--', linewidth=2, label='Covergence of the bound')
         plt.title(f'Second Moment Convergence ({step_type} step size)')
         plt.xlabel('Iteration $k$')
-        plt.ylabel('Second moment difference')
+        plt.ylabel('Second moment minus S(.)')
         plt.legend(loc='best')
         plt.grid(True)
         plt.tight_layout()
@@ -195,11 +198,12 @@ def main():
         # --- Third plot: Norm of second moment ---
         plt.figure(figsize=(8, 5))
         plt.plot(second_moment, 'b-', linewidth=2, label = r'$\|\mathbb{E}_{D}[(\hat{w}_{k+1} - \hat{w})(\hat{w}_{k+1} - \hat{w})^\top]\|_2$')
-        plt.plot(second_moment_bound, 'r--', linewidth=2, label='Second moment bound (Lemma 3.3)')
-        #plt.plot(np.abs(second_moment - second_moment_bound), 'g--', linewidth=2, label='Covergence of the bound')
+        plt.plot(second_moment_bound, 'r--', linewidth=2, label='Second moment bound (Theorem 3.4)')
+        plt.plot(np.abs(second_moment - second_moment_bound), 'g--', linewidth=2, label='Covergence of the bound')
         plt.title(f'Norm of the Second Moment ({step_type} step size)')
         plt.xlabel('Iteration $k$')
         plt.ylabel('Second moment')
+        plt.legend(loc='best')
         plt.grid(True)
         plt.tight_layout()
         plt.show()
