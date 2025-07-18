@@ -1,5 +1,6 @@
 import numpy as np
-from scipy.linalg import null_space, svdvals
+from scipy.linalg import svdvals
+import matplotlib.pyplot as plt
 
 def get_M2(self):
     """
@@ -168,3 +169,47 @@ def psd_sqrt(M):
     sqrt_M = eigvecs @ np.diag(np.sqrt(eigvals_clipped)) @ eigvecs.T
 
     return sqrt_M
+
+def plot_simulation_results(first_moment, first_moment_bound, second_moment_diff, second_moment_diff_bound, second_moment, second_moment_bound, step_type):
+    """
+    Plot the simulation results
+    """
+    # Plot the convergence of the iterates to the expected solution
+    # First plot: First moment convergence
+    plt.figure(figsize=(8, 5))
+    plt.plot(first_moment, 'b-', linewidth=2, label=r'$\|\mathbb{E}_D[\hat w_{k+1} - \hat{w}]\|_2$')
+    plt.plot(first_moment_bound, 'r--', linewidth=2, label='First moment bound (Lemma 3.2)')
+    plt.plot(np.abs(first_moment - first_moment_bound), 'g--', linewidth=2, label='Covergence of the bound')
+    plt.title(f'First Moment Convergence ({step_type} step size)')
+    plt.xlabel('Iteration $k$')
+    plt.ylabel('First moment')
+    plt.legend(loc='best')
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
+    # --- Second plot: Second moment vs operator S(.) ---
+    plt.figure(figsize=(8, 5))
+    plt.plot(second_moment_diff, 'b-', linewidth=2, label=r'$\|\mathbb{E}_D[(\hat w_k - \hat{w})(Y - X \hat{w})^T] - S_{\alpha_k}(\mathbb{E}_D[(\hat w_k - \hat{w})(Y - X \hat{w})^T]) \|_2$')
+    plt.plot(second_moment_diff_bound, 'r--', linewidth=2, label='Second moment minus S(.) bound (Lemma 3.3)')
+    plt.plot(np.abs(second_moment_diff - second_moment_diff_bound), 'g--', linewidth=2, label='Covergence of the bound')
+    plt.title(f'Second Moment Convergence ({step_type} step size)')
+    plt.xlabel('Iteration $k$')
+    plt.ylabel('Second moment minus S(.)')
+    plt.legend(loc='best')
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
+    # --- Third plot: Norm of second moment ---
+    plt.figure(figsize=(8, 5))
+    plt.plot(second_moment, 'b-', linewidth=2, label = r'$\|\mathbb{E}_{D}[(\hat{w}_{k+1} - \hat{w})(\hat{w}_{k+1} - \hat{w})^\top]\|_2$')
+    plt.plot(second_moment_bound, 'r--', linewidth=2, label='Second moment bound (Theorem 3.4)')
+    plt.plot(np.abs(second_moment - second_moment_bound), 'g--', linewidth=2, label='Covergence of the bound')
+    plt.title(f'Norm of the Second Moment ({step_type} step size)')
+    plt.xlabel('Iteration $k$')
+    plt.ylabel('Second moment')
+    plt.legend(loc='best')
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()

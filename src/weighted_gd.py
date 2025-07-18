@@ -1,9 +1,11 @@
-import matplotlib.pyplot as plt
-from util.helper import *
+import numpy as np
+from utils.helper import *
 from scipy.special import zeta
-from scipy.linalg import sqrtm
 
 class WeightedGD:
+    """
+    Class to simulate weighted gradient descent and compute moments
+    """
     def __init__(self, X, Y, w_true, alpha, n_iterations, step_type, initialization,
                         weight_distribution, p, n_simulations):
         self.X = X
@@ -113,100 +115,3 @@ class WeightedGD:
             second_moment_bound[k] = C_1 * (1/((k+1)**(alphab * sigma_min)))
         
         return first_moment, first_moment_bound, second_moment_diff, second_moment_diff_bound, second_moment, second_moment_bound
-
-def main():
-    # Generate synthetic data
-    np.random.seed(33)
-    n_samples = 5
-    n_features = 50
-
-    n_iterations = 1000
-    n_simulations = 100
-    p_succ = 0.2
-    weight_distribution = 'uniform'
-    initialization = 'orthogonal'
-    alpha = 0.65 # this is the step size for the constant step size
-    step_types = ['constant']
-    
-    # Generate random data matrix X
-    # X = np.random.randn(n_samples, n_features)
-    # print("This is I - XX^+: ", np.linalg.norm(np.eye(n_samples) - X @ np.linalg.pinv(X), ord=2))
-
-    G = np.random.randn(n_samples, n_samples)
-    # do a QR decomposition
-    Q, R = np.linalg.qr(G)
-
-    A = np.random.randn(n_features, n_features)
-    S,T = np.linalg.qr(A)
-
-    # Generate Cauchy distributed values and scale them down
-    sigma = np.zeros((n_samples, n_features))
-
-    # Set diagonal elements to zero with probability p
-    for i in range(min(n_samples, n_features)):
-        sigma[i,i] = np.random.binomial(1, p=0.6) * np.abs(np.random.randn())
-
-    X = Q @ sigma @ S
-    print("This is I - XX^+: ", np.linalg.norm(np.eye(n_samples) - X @ np.linalg.pinv(X), ord=2))
-    
-    # Generate true weights
-    w_true = np.random.randn(n_features, 1)
-    noise = np.random.randn(n_samples, 1)
-    Y = X @ w_true + noise
-
-    wg = WeightedGD(X, Y, w_true, alpha, n_iterations, step_types[0], initialization,
-                    weight_distribution, p_succ, n_simulations)
-    
-    for i, step_type in enumerate(step_types):
-        first_moment, first_moment_bound, second_moment_diff, second_moment_diff_bound, second_moment, second_moment_bound = wg.simulate_weighted_gd()
-        
-        # normalizing the moments, and the bounds
-        # first_moment = first_moment / (first_moment.max() + 1e-10)
-        # first_moment_bound = first_moment_bound / first_moment_bound.max() + 1e-10
-        # second_moment_diff = second_moment_diff / second_moment_diff.max() + 1e-10
-        # second_moment_diff_bound = second_moment_diff_bound / second_moment_diff_bound.max() + 1e-10
-        # second_moment = second_moment / (second_moment.max() + 1e-10)
-        # second_moment_bound = second_moment_bound / (second_moment_bound.max() + 1e-10)
-        
-        # Plot the convergence of the iterates to the expected solution
-        # --- First plot: First moment convergence ---
-        plt.figure(figsize=(8, 5))
-        plt.plot(first_moment, 'b-', linewidth=2, label=r'$\|\mathbb{E}_D[\hat w_{k+1} - \hat{w}]\|_2$')
-        plt.plot(first_moment_bound, 'r--', linewidth=2, label='First moment bound (Lemma 3.2)')
-        plt.plot(np.abs(first_moment - first_moment_bound), 'g--', linewidth=2, label='Covergence of the bound')
-        plt.title(f'First Moment Convergence ({step_type} step size)')
-        plt.xlabel('Iteration $k$')
-        plt.ylabel('First moment')
-        plt.legend(loc='best')
-        plt.grid(True)
-        plt.tight_layout()
-        plt.show()
-
-        # --- Second plot: Second moment vs operator S(.) ---
-        plt.figure(figsize=(8, 5))
-        plt.plot(second_moment_diff, 'b-', linewidth=2, label=r'$\|\mathbb{E}_D[(\hat w_k - \hat{w})(Y - X \hat{w})^T] - S_{\alpha_k}(\mathbb{E}_D[(\hat w_k - \hat{w})(Y - X \hat{w})^T]) \|_2$')
-        plt.plot(second_moment_diff_bound, 'r--', linewidth=2, label='Second moment minus S(.) bound (Lemma 3.3)')
-        plt.plot(np.abs(second_moment_diff - second_moment_diff_bound), 'g--', linewidth=2, label='Covergence of the bound')
-        plt.title(f'Second Moment Convergence ({step_type} step size)')
-        plt.xlabel('Iteration $k$')
-        plt.ylabel('Second moment minus S(.)')
-        plt.legend(loc='best')
-        plt.grid(True)
-        plt.tight_layout()
-        plt.show()
-
-        # --- Third plot: Norm of second moment ---
-        plt.figure(figsize=(8, 5))
-        plt.plot(second_moment, 'b-', linewidth=2, label = r'$\|\mathbb{E}_{D}[(\hat{w}_{k+1} - \hat{w})(\hat{w}_{k+1} - \hat{w})^\top]\|_2$')
-        plt.plot(second_moment_bound, 'r--', linewidth=2, label='Second moment bound (Theorem 3.4)')
-        plt.plot(np.abs(second_moment - second_moment_bound), 'g--', linewidth=2, label='Covergence of the bound')
-        plt.title(f'Norm of the Second Moment ({step_type} step size)')
-        plt.xlabel('Iteration $k$')
-        plt.ylabel('Second moment')
-        plt.legend(loc='best')
-        plt.grid(True)
-        plt.tight_layout()
-        plt.show()
-
-if __name__ == "__main__":
-    main() 
