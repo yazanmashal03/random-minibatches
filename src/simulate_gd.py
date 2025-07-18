@@ -1,15 +1,16 @@
 import matplotlib.pyplot as plt
 from utils.helper import *
 from weighted_gd import WeightedGD
+from scipy.stats import cauchy
 
 def main():
     # Generate synthetic data
-    np.random.seed(33)
-    n_samples = 5
-    n_features = 50
+    np.random.seed(34)
+    n_samples = 10
+    n_features = 100
 
-    n_iterations = 1000
-    n_simulations = 100
+    n_iterations = 500
+    n_simulations = 10
     p_succ = 0.2
     weight_distribution = 'uniform'
     initialization = 'orthogonal'
@@ -30,7 +31,7 @@ def main():
 
     # Set diagonal elements to random normal with probability p
     for i in range(min(n_samples, n_features)):
-        sigma[i,i] = np.random.binomial(1, p=0.6) * np.abs(np.random.randn())
+        sigma[i,i] = np.random.binomial(1, p=0.6) * 1 * np.random.randn()
 
     X = Q @ sigma @ S
     print("This is I - XX^+: ", np.linalg.norm(np.eye(n_samples) - X @ np.linalg.pinv(X), ord=2))

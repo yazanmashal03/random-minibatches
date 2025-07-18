@@ -45,7 +45,6 @@ class WeightedGD:
             ValueError("M_2 is likely singular or ill-conditioned.")
 
         M_2_sqrt = psd_sqrt(M_2)
-        print(np.allclose(M_2, M_2_sqrt @ M_2_sqrt))  # This will print True if correct
         X_hat = M_2_sqrt @ self.X
         Y_hat = M_2_sqrt @ self.Y
         w_hat = np.linalg.pinv(X_hat) @ Y_hat
@@ -77,20 +76,24 @@ class WeightedGD:
                 w_diff = (I - alphas[k] * self.X.T @ D_k_squared @ self.X) @ w_diff + alphas[k] * self.X.T @ D_k_squared @ (self.Y-self.X @ w_hat)
                 all_diffs[sim, k] = w_diff
                 all_second_diffs[sim, k] = (w_diff) @ (w_diff).T
-            print("This is simulation: ", sim)
+            print("Just finished simulation: ", sim)
 
         # Compute first moment (mean)
-        all_diffs = all_diffs.squeeze()
-        mean_weights = np.mean(all_diffs, axis=0)
-        first_moment = np.linalg.norm(mean_weights, axis=1, ord=2)
+        try:
+            all_diffs = all_diffs.squeeze()
+            mean_weights = np.mean(all_diffs, axis=0)
+            first_moment = np.linalg.norm(mean_weights, axis=1, ord=2)
+            all_second_means = np.mean(all_second_diffs, axis=0)
+            second_moment = np.linalg.norm(all_second_means, axis=(1,2), ord=2) # this is the second moment of the weights
+        except Exception as e:
+            print(f"Error converging: {e}")
+            return None, None, None, None, None, None
         
-        all_second_means = np.mean(all_second_diffs, axis=0)
-        second_moment = np.linalg.norm(all_second_means, axis=(1,2), ord=2)
         second_moment_diff = np.zeros(self.n_iterations)
         norm_sigma_d = np.linalg.norm(get_sigma_d(self), ord=2)
 
         for k in range(self.n_iterations):
-            second_moment_diff[k] = np.linalg.norm(all_second_means[k] - compute_S_alpha(self, all_second_means[k], self.X, self.Y, w_hat, alphas[k], M_2_sqrt, self.sensitivities), ord=2)
+            second_moment_diff[k] = np.linalg.norm(all_second_means[k] - compute_S_alpha(self, all_second_means[k], self.X, self.Y, w_hat, alphas[k], M_2_sqrt), ord=2)
 
         # Compute theoretical bounds
         first_moment_bound = np.zeros(self.n_iterations)
@@ -100,9 +103,8 @@ class WeightedGD:
         # defining the constants for the bounds
         C_0 = np.linalg.norm((w_init - w_hat) @ (w_init - w_hat).T, ord=2) + 2 * X_norm**3 * norm_sigma_d * np.linalg.norm(self.Y - self.X @ w_hat, ord=2) * np.linalg.norm(w_init - w_hat, ord=2)
         C_1 = C_0 * (1 + alphab * (((np.pi)**2)/6)) + X_norm**2 * norm_sigma_d * np.linalg.norm(self.Y - self.X @ w_hat, ord=2)**2 * (np.e)**(alphab * sigma_min * euler_gamma) * alphab * zeta(2 - (alphab * sigma_min))
-        #C_1 = 22
         print("This is C_1: ", C_1)
-        print("This is alpha: ", alphab, "This is sigma_min: ", sigma_min)
+        print("This is alpha: ", alphab, "This is sigma_min: ", sigma_min, "This is alphab * sigma_min: ", alphab * sigma_min)
         
         # Compute the product term for each k
         for k in range(self.n_iterations):
