@@ -42,7 +42,7 @@ class WeightedGD:
         if cond_number < 1/np.finfo(M_2.dtype).eps:
             print("M_2 is non-singular (well-conditioned).")
         else:
-            ValueError("M_2 is likely singular or ill-conditioned.")
+            raise ValueError("M_2 is likely singular or ill-conditioned.")
 
         M_2_sqrt = psd_sqrt(M_2)
         X_hat = M_2_sqrt @ self.X
