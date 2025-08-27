@@ -4,7 +4,7 @@ from utils.helper import plot_simulation_results
 from weighted_gd import WeightedGD
 
 def run_experiment(n_samples, n_features, weight_distribution, results_dir):
-    np.random.seed(34)
+    np.random.seed(59)
     n_iterations = 500
     n_simulations = 10
     p_succ = 0.7
@@ -19,13 +19,13 @@ def run_experiment(n_samples, n_features, weight_distribution, results_dir):
     S, T = np.linalg.qr(A)
     sigma = np.zeros((n_samples, n_features))
     for i in range(min(n_samples, n_features)):
-        sigma[i,i] = np.random.binomial(1, p=0.6) * 1 * np.random.randn()
+        sigma[i,i] = np.random.binomial(1, p=0.6) * np.abs(1 + np.random.randn())
     X = Q @ sigma @ S
     w_true = np.random.randn(n_features, 1)
     noise = np.random.randn(n_samples, 1)
     Y = X @ w_true + noise
 
-    wg = WeightedGD(X, Y, w_true, alpha, n_iterations, step_type, initialization, weight_distribution, p_succ, n_simulations)
+    wg = WeightedGD(X, Y, alpha, n_iterations, step_type, initialization, weight_distribution, p_succ, n_simulations)
     first_moment, first_moment_bound, second_moment_diff, second_moment_diff_bound, second_moment, second_moment_bound = wg.simulate_weighted_gd()
 
     # Save plot
@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
     n_samples_list = [10, 50, 100]
     n_features_list = [10, 50, 100, 200]
-    weight_distributions = ['uniform', 'bernoulli', 'importance']
+    weight_distributions = ['bernoulli', 'importance']
 
     for n_samples in n_samples_list:
         for n_features in n_features_list:
