@@ -7,10 +7,10 @@ def run_experiment(n_samples, n_features, weight_distribution, results_dir):
     np.random.seed(59)
     n_iterations = 500
     n_simulations = 10
-    p_succ = 0.7
     initialization = 'orthogonal'
     alpha = 0.65
     step_type = 'constant'
+    batch_size = 1
 
     # Data generation (same as in your main)
     G = np.random.randn(n_samples, n_samples)
@@ -25,33 +25,55 @@ def run_experiment(n_samples, n_features, weight_distribution, results_dir):
     noise = np.random.randn(n_samples, 1)
     Y = X @ w_true + noise
 
-    wg = WeightedGD(X, Y, alpha, n_iterations, step_type, initialization, weight_distribution, p_succ, n_simulations)
-    first_moment, first_moment_bound, second_moment_diff, second_moment_diff_bound, second_moment, second_moment_bound = wg.simulate_weighted_gd()
-
-    # Save plot
-    if first_moment is not None and first_moment_bound is not None and second_moment_diff is not None and second_moment_diff_bound is not None and second_moment is not None and second_moment_bound is not None:
-        plot_path = os.path.join(results_dir, f"sim_n{n_samples}_d{n_features}_wdist_{weight_distribution}.png")
-        try:
-            plot_simulation_results(first_moment, first_moment_bound, second_moment_diff, second_moment_diff_bound, second_moment, second_moment_bound, step_type, save_path=plot_path)
-            print(f"Plot saved successfully to: {plot_path}")
-        except Exception as e:
-            print(f"Error saving plot: {e}")
-            print(f"Current working directory: {os.getcwd()}")
-            print(f"Results directory: {results_dir}")
-            print(f"Plot path: {plot_path}")
+    # Generate weights based on weight distribution
+    if weight_distribution == 'importance':
+        weights = np.linalg.norm(X, axis=1)
+    elif weight_distribution == 'bernoulli':
+        weights = np.ones(n_samples)  # Equal weights for uniform sampling
     else:
+        weights = np.ones(n_samples)  # Default to uniform
+
+
+    wg = WeightedGD(X, Y, alpha, n_iterations, step_type, initialization, weight_distribution, weights, batch_size, n_simulations)
+    
+    try:
+        first_moment, first_moment_bound, second_moment, second_moment_bound, square_dist = wg.simulate_weighted_gd()
+        # Save plot
+        if first_moment is not None and first_moment_bound is not None and second_moment is not None and second_moment_bound is not None:
+            plot_path = os.path.join(results_dir, f"sim_n{n_samples}_d{n_features}_wdist_{weight_distribution}.png")
+            try:
+                plot_simulation_results(first_moment, first_moment_bound, second_moment, second_moment_bound, square_dist, step_type, save_path=plot_path)
+                print(f"Plot saved successfully to: {plot_path}")
+            except Exception as e:
+                print(f"Error saving plot: {e}")
+                print(f"Current working directory: {os.getcwd()}")
+                print(f"Results directory: {results_dir}")
+                print(f"Plot path: {plot_path}")
+        else:
+            # Save a plot that says "Error converging"
+            plot_path = os.path.join(results_dir, f"sim_n{n_samples}_d{n_features}_wdist_{weight_distribution}.png")
+            plot_simulation_results(None, None, None, None, None, None, step_type, save_path=plot_path)
+            print(f"Plot saved successfully to: {plot_path}")
+    except Exception as e:
+        print(f"Exception during simulation: {e}")
         # Save a plot that says "Error converging"
         plot_path = os.path.join(results_dir, f"sim_n{n_samples}_d{n_features}_wdist_{weight_distribution}.png")
-        plot_simulation_results(None, None, None, None, None, None, step_type, save_path=plot_path)
-        print(f"Plot saved successfully to: {plot_path}")
+        try:
+            plot_simulation_results(None, None, None, None, None, step_type, save_path=plot_path)
+            print(f"Error plot saved successfully to: {plot_path}")
+        except Exception as plot_error:
+            print(f"Error saving error plot: {plot_error}")
 
 if __name__ == "__main__":
-    results_dir = "../figures"
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    results_dir = os.path.join(current_dir, "..", "figures")
     os.makedirs(results_dir, exist_ok=True)
+    print(f"Results directory: {results_dir}")
+    print(f"Current working directory: {os.getcwd()}")
 
     n_samples_list = [10, 50, 100]
     n_features_list = [10, 50, 100, 200]
-    weight_distributions = ['bernoulli', 'importance']
+    weight_distributions = ['bernoulli', 'noiseless']
 
     for n_samples in n_samples_list:
         for n_features in n_features_list:
