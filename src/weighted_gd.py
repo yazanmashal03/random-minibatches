@@ -139,7 +139,7 @@ class WeightedGD:
 
         elif self.step_type == 'linear':
 
-            C_1 = C_0 * (1 + self.alpha * (((np.pi)**2)/6)) + X_norm**2 * norm_sigma_d * np.linalg.norm(self.Y - self.X @ w_hat)**2 * np.exp(alpha * sigma_min * euler_gamma) * alpha * zeta(2 - alpha * sigma_min)
+            C_1 = C_0 * (1 + self.alpha * (((np.pi)**2)/6)) + X_norm**2 * norm_sigma_d * np.linalg.norm(self.Y - self.X @ w_hat)**2 * np.exp(self.alpha * sigma_min * euler_gamma) * self.alpha * zeta(2 - self.alpha * sigma_min)
 
         else:
 

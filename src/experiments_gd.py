@@ -10,7 +10,7 @@ def run_experiment(n_samples, n_features, weight_distribution, results_dir):
     initialization = 'orthogonal'
     alpha = 0.65
     step_type = 'constant'
-    batch_size = 1
+    batch_size = "random"
 
     # Data generation (same as in your main)
     G = np.random.randn(n_samples, n_samples)
